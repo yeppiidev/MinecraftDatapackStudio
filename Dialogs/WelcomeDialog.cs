@@ -19,7 +19,7 @@ namespace MinecraftDatapackStudio.Dialogs
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
-            newsBrowser.Load("https://asiawin.github.io/");
+            newsBrowser.Load("https://.github.io/");
         }
 
         private void Close(object sender, EventArgs e) {
