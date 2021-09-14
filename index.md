@@ -1,37 +1,15 @@
-## Welcome to GitHub Pages
+# Minecraft Datapack Studio
+ An easy-to-use IDE for making Minecraft Datapacks.
+ 
+# How to use?
+- Download the latest release from the (releases)[https://github.com/yeppiidev/MinecraftDatapackStudio/releases] page
+- Make sure you have .NET Framework 4.7 or above installed (It should be installed if you have the latest Windows updates installed)
+- If you've downloaded the `.zip` file, extract it to a folder
+- Double click the executable (`MinecraftDatapackStudio.exe`) to run the IDE
 
-You can use the [editor on GitHub](https://github.com/yeppiidev/MinecraftDatapackStudio/edit/github-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# Warning
+This application is experimental: It may contain bugs and exploits, use only if you know what you're doing.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yeppiidev/MinecraftDatapackStudio/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+# Contributors
+- **(yeppiidev)[https://github.com/yeppiidev]** (author/owner)
+- (Progamezia)[https://github.com/Aagney-github] (testing)
