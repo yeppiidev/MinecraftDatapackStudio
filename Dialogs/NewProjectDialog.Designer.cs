@@ -108,7 +108,7 @@
             this.createProjectButton.TabIndex = 6;
             this.createProjectButton.Text = "Create";
             this.createProjectButton.UseVisualStyleBackColor = true;
-            this.createProjectButton.Click += new System.EventHandler(this.createProjectButton_Click);
+            this.createProjectButton.Click += new System.EventHandler(this.CreateProject);
             // 
             // cancelButton
             // 
@@ -119,7 +119,7 @@
             this.cancelButton.TabIndex = 5;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelClicked);
             // 
             // errorText
             // 
@@ -210,7 +210,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create New Project";
-            this.Load += new System.EventHandler(this.NewProjectDialog_Load);
+            this.Load += new System.EventHandler(this.OnFormLoad);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

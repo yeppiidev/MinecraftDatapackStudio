@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio {
@@ -38,7 +39,7 @@ namespace MinecraftDatapackStudio {
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
-            SetupEditor("tab0");
+            SetupEditor(ref scintilla);
         }
 
         private void OnFormShown(object sender, EventArgs e) {
@@ -51,9 +52,11 @@ namespace MinecraftDatapackStudio {
 
         public void AddTabPage() {
             TabPage newPage = new TabPage("untitled.mcfunction");
-            Scintilla control = SetupEditor("tab" + editorTabs.TabCount);
+            Scintilla control = new Scintilla() {
+                Dock = DockStyle.Fill,
+            };   
 
-            control.Dock = DockStyle.Fill;
+            SetupEditor(ref control);
 
             activeEditor = control;
             newPage.Controls.Add(control);
@@ -69,31 +72,29 @@ namespace MinecraftDatapackStudio {
             AddTabPage();
         }
 
-        private Scintilla SetupEditor(string name) {
-            Scintilla control = new Scintilla();
-
+        private void SetupEditor(ref Scintilla control) {
             control.Lexer = Lexer.Null;
 
             control.AutoCDropRestOfWord = true;
             control.AutoCIgnoreCase = true;
             control.AutoCMaxHeight = 9;
-            control.BiDirectionality = ScintillaNET.BiDirectionalDisplayType.Disabled;
-            control.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            control.CaretStyle = ScintillaNET.CaretStyle.Block;
-            control.Dock = System.Windows.Forms.DockStyle.Fill;
-            control.EdgeColor = System.Drawing.Color.DarkGray;
-            control.Font = new System.Drawing.Font("Consolas", 9F);
-            control.Location = new System.Drawing.Point(3, 3);
+            control.BiDirectionality = BiDirectionalDisplayType.Disabled;
+            control.BorderStyle = BorderStyle.FixedSingle;
+            control.CaretStyle = CaretStyle.Block;
+            control.Dock = DockStyle.Fill;
+            control.EdgeColor = Color.DarkGray;
+            control.Font = new Font("Consolas", 9F);
+            control.Location = new Point(3, 3);
             control.MultipleSelection = true;
-            control.Name = name;
+            control.Name = "editor" + editorTabs.TabPages.Count;
             control.ScrollWidth = 140;
-            control.Size = new System.Drawing.Size(560, 368);
+            control.Size = new Size(560, 368);
             control.TabIndents = true;
             control.TabIndex = 0;
             control.Text = TemplateTexts.MCFunction.Header;
             control.UseRightToLeftReadingLayout = false;
-            control.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAfterIndent;
-            control.WrapMode = ScintillaNET.WrapMode.None;
+            control.ViewWhitespace = WhitespaceMode.VisibleAfterIndent;
+            control.WrapMode = WrapMode.None;
             control.CharAdded += OnEditorCharAdd;
             control.KeyDown += OnEditorKeyDown;
             control.TextChanged += OnEditorTextChange;
@@ -114,8 +115,6 @@ namespace MinecraftDatapackStudio {
 
             control.SetKeywords(0, keywords);
             control.SetKeywords(1, selectors);
-
-            return scintilla;
         }
 
         private void OnEditorTextChange(object sender, EventArgs e) {
@@ -166,16 +165,18 @@ namespace MinecraftDatapackStudio {
             }
         }
 
-        public static bool PackCreationFinished(string json, string minecraftFolder, string worldName, string projectName) {
+        public static bool PackCreationFinished(string json, string minecraftFolder, string worldName, DatapackInfo packInfo) {
             packInfoJSON = json;
 
-            string projectFolder = minecraftFolder + "/" + worldName + "/datapacks/" + projectName;
+            currentPack = packInfo;
+
+            string projectFolder = minecraftFolder + "/" + worldName + "/datapacks/" + packInfo.packId;
             if (Directory.Exists(projectFolder)) {
-                DialogResult dialogResult = MessageBox.Show(null, "Datapack '" + projectName + "' already exists in the world '" + worldName + "'. Overwrite this pack? (The datapack will be deleted and a new one will be generated in place of it)", "Datapack already exists", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show(null, "Datapack '" + packInfo.packId + "' already exists in the world '" + worldName + "'. Overwrite this pack? (The datapack will be deleted and a new one will be generated in place of it)", "Datapack already exists", MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes) {
                     Directory.Delete(projectFolder);
-                    CreateDatapackRoot(projectFolder, projectName, json);
+                    CreateDatapackRoot(projectFolder, packInfo.packId, json);
 
                     datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
                     return true;
@@ -183,7 +184,7 @@ namespace MinecraftDatapackStudio {
                     return false;
                 }
             } else {
-                CreateDatapackRoot(projectFolder, projectName, json);
+                CreateDatapackRoot(projectFolder, packInfo.packId, json);
                 datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
             }
             return true;
@@ -251,6 +252,8 @@ namespace MinecraftDatapackStudio {
                 editorTabs.SelectedTab.Text = e.Node.Text;
 
                 activeFile = path;
+
+                Text = $"{e.Node.Text} - {currentPack.packId} - Minecraft Datapack Studio";
             } catch (Exception) { }
         }
 

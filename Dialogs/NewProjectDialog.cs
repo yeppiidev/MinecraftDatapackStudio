@@ -26,7 +26,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             PackVersion = new Dictionary<string, string>();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e) {
+        private void CancelClicked(object sender, EventArgs e) {
             Close();
         }
 
@@ -44,7 +44,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             return false;
         }
 
-        private async void NewProjectDialog_Load(object sender, EventArgs e) {
+        private async void OnFormLoad(object sender, EventArgs e) {
             using (var client = new WebClient()) {
                 try {
                     if (!Directory.Exists(manifestDownloadPath)) {
@@ -55,10 +55,10 @@ namespace MinecraftDatapackStudio.Dialogs {
                         client.DownloadFileAsync(new Uri("https://api.jsonbin.io/b/613f0f129548541c29b0f5f5/1"), manifestDownloadPath + manifestDownloadFile);
 
                         client.DownloadFileCompleted += (object eventSender, System.ComponentModel.AsyncCompletedEventArgs completedEventArgs) => {
-                            parseJson();
+                            ParseJSON();
                         };
                     } else {
-                        parseJson();
+                        ParseJSON();
                     }
                 } catch (Exception) {
                     errorText.Show();
@@ -73,7 +73,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             }
         }
 
-        public void parseJson() {
+        public void ParseJSON() {
             try {
                 String json = File.ReadAllText(manifestDownloadPath + manifestDownloadFile);
                 DatapackVersion datapackVersion = JsonConvert.DeserializeObject<DatapackVersion>(json);
@@ -90,7 +90,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             }
         }
 
-        private void createProjectButton_Click(object sender, EventArgs e) {
+        private void CreateProject(object sender, EventArgs e) {
             try {
                 if (projNameBox.Text == "") {
                     errorText.Text = "Please fill in all the fields!";
@@ -136,7 +136,7 @@ namespace MinecraftDatapackStudio.Dialogs {
 
                 string json = JsonConvert.SerializeObject(datapackInfo, Formatting.Indented);
 
-                if (MainForm.PackCreationFinished(json, minecraftFolder + "/saves", worldsList.Text, PackInfo.packId)) {
+                if (MainForm.PackCreationFinished(json, minecraftFolder + "/saves", worldsList.Text, PackInfo)) {
                     Close();
                 }
             } catch (Exception) {
