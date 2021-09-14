@@ -4,12 +4,9 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MinecraftDatapackStudio
-{
-    static class Program
-    {
-        static void InitializeCEF()
-        {
+namespace MinecraftDatapackStudio {
+    static class Program {
+        static void InitializeCEF() {
             var settings = new CefSettings();
 
             //We're going to manually call Cef.Shutdown below, this maybe required in some complex scenarios
@@ -32,8 +29,7 @@ namespace MinecraftDatapackStudio
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
-        {
+        static void Main() {
             InitializeCEF();
 
             Application.EnableVisualStyles();

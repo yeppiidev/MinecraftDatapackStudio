@@ -9,10 +9,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MinecraftDatapackStudio
-{
-    public partial class MainForm : Form
-    {
+namespace MinecraftDatapackStudio {
+    public partial class MainForm : Form {
         private int maxLineNumberCharLength;
 
         private static string keywords = "execute gamemode summon schedule say give item replace from with run kill at as";
@@ -27,71 +25,53 @@ namespace MinecraftDatapackStudio
         public static string datapackRoot;
 
         public static DatapackInfo currentPack;
-        
+
         public static MainForm Context;
 
-        public MainForm()
-        {
+        public MainForm() {
             InitializeComponent();
-            
+
             tabs = new Dictionary<TabPage, Scintilla>();
             currentPack = new DatapackInfo();
             saveFileDialog = new SaveFileDialog();
             Context = this;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            SetupEditor(ref scintilla);
+        private void OnFormLoad(object sender, EventArgs e) {
+            SetupEditor("tab0");
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void OnFormShown(object sender, EventArgs e) {
+            new WelcomeDialog().ShowDialog();
+        }
+
+        private void ShowNewProjectDialog(object sender, EventArgs e) {
             new NewProjectDialog().ShowDialog();
         }
 
-        private void contentsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://minecraft.fandom.com/wiki/Data_Pack");
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new AboutForm().ShowDialog();
-        }
-
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void projectFileTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        public void AddTabPage()
-        {
+        public void AddTabPage() {
             TabPage newPage = new TabPage("untitled.mcfunction");
-            Scintilla control = new Scintilla
-            {
-                Dock = DockStyle.Fill
-            };
+            Scintilla control = SetupEditor("tab" + editorTabs.TabCount);
+
+            control.Dock = DockStyle.Fill;
 
             activeEditor = control;
-            SetupEditor(ref control);
             newPage.Controls.Add(control);
             editorTabs.TabPages.Add(newPage);
             tabs.Add(newPage, control);
         }
 
-        private void addFunctionToolBtn_Click(object sender, EventArgs e)
-        {
+        private void OnAddFunctionMenuItemClick(object sender, EventArgs e) {
             AddTabPage();
         }
 
-        private void SetupEditor(ref Scintilla control)
-        {
+        private void OnAddFunctionButtonClick(object sender, EventArgs e) {
+            AddTabPage();
+        }
+
+        private Scintilla SetupEditor(string name) {
+            Scintilla control = new Scintilla();
+
             control.Lexer = Lexer.Null;
 
             control.AutoCDropRestOfWord = true;
@@ -105,7 +85,7 @@ namespace MinecraftDatapackStudio
             control.Font = new System.Drawing.Font("Consolas", 9F);
             control.Location = new System.Drawing.Point(3, 3);
             control.MultipleSelection = true;
-            control.Name = "editor" + editorTabs.TabPages.Count;
+            control.Name = name;
             control.ScrollWidth = 140;
             control.Size = new System.Drawing.Size(560, 368);
             control.TabIndents = true;
@@ -114,9 +94,9 @@ namespace MinecraftDatapackStudio
             control.UseRightToLeftReadingLayout = false;
             control.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAfterIndent;
             control.WrapMode = ScintillaNET.WrapMode.None;
-            control.CharAdded += Control_CharAdded;
-            control.KeyDown += Control_KeyDown;
-            control.TextChanged += Control_TextChanged;
+            control.CharAdded += OnEditorCharAdd;
+            control.KeyDown += OnEditorKeyDown;
+            control.TextChanged += OnEditorTextChange;
 
             control.Lexer = Lexer.Python;
 
@@ -134,10 +114,11 @@ namespace MinecraftDatapackStudio
 
             control.SetKeywords(0, keywords);
             control.SetKeywords(1, selectors);
+
+            return scintilla;
         }
 
-        private void Control_TextChanged(object sender, EventArgs e)
-        {
+        private void OnEditorTextChange(object sender, EventArgs e) {
             // Did the number of characters in the line number display change?
             // i.e. nnn VS nn, or nnnn VS nn, etc...
             var maxLineNumberCharLength = ((Scintilla)sender).Lines.Count.ToString().Length;
@@ -156,10 +137,8 @@ namespace MinecraftDatapackStudio
             editorTabs.SelectedTab.Text = oldtext + "*";
         }
 
-        private void Control_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Space && e.Control)
-            {
+        private void OnEditorKeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Space && e.Control) {
                 e.SuppressKeyPress = true;
                 // Find the word start
                 var currentPos = ((Scintilla)sender).CurrentPosition;
@@ -167,58 +146,43 @@ namespace MinecraftDatapackStudio
 
                 // Display the autocompletion list
                 var lenEntered = currentPos - wordStartPos;
-                if (lenEntered > 0)
-                {
+                if (lenEntered > 0) {
                     if (!((Scintilla)sender).AutoCActive)
                         ((Scintilla)sender).AutoCShow(lenEntered, keywords);
                 }
             }
         }
 
-        private void Control_CharAdded(object sender, CharAddedEventArgs e)
-        {
+        private void OnEditorCharAdd(object sender, CharAddedEventArgs e) {
             // Find the word start
             var currentPos = ((Scintilla)sender).CurrentPosition;
             var wordStartPos = ((Scintilla)sender).WordStartPosition(currentPos, true);
 
             // Display the autocompletion list
             var lenEntered = currentPos - wordStartPos;
-            if (lenEntered > 0)
-            {
+            if (lenEntered > 0) {
                 if (!((Scintilla)sender).AutoCActive)
                     ((Scintilla)sender).AutoCShow(lenEntered, keywords);
             }
         }
 
-        private void functionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddTabPage();
-        }
-
-        public static bool PackCreationFinished(string json, string minecraftFolder, string worldName, string projectName)
-        {
+        public static bool PackCreationFinished(string json, string minecraftFolder, string worldName, string projectName) {
             packInfoJSON = json;
 
             string projectFolder = minecraftFolder + "/" + worldName + "/datapacks/" + projectName;
-            if (Directory.Exists(projectFolder))
-            {
+            if (Directory.Exists(projectFolder)) {
                 DialogResult dialogResult = MessageBox.Show(null, "Datapack '" + projectName + "' already exists in the world '" + worldName + "'. Overwrite this pack? (The datapack will be deleted and a new one will be generated in place of it)", "Datapack already exists", MessageBoxButtons.YesNo);
 
-                if (dialogResult == DialogResult.Yes)
-                {
+                if (dialogResult == DialogResult.Yes) {
                     Directory.Delete(projectFolder);
                     CreateDatapackRoot(projectFolder, projectName, json);
 
                     datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
-            }
-            else
-            {
+            } else {
                 CreateDatapackRoot(projectFolder, projectName, json);
                 datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
             }
@@ -226,8 +190,7 @@ namespace MinecraftDatapackStudio
 
         }
 
-        private static void CreateDatapackRoot(string path, string packName, string mcmeta)
-        {
+        private static void CreateDatapackRoot(string path, string packName, string mcmeta) {
             FunctionTag load_json = new FunctionTag();
             FunctionTag tick_json = new FunctionTag();
 
@@ -255,19 +218,16 @@ namespace MinecraftDatapackStudio
             ListDirectory(Context.projectFileTree, path);
         }
 
-        private static void ListDirectory(TreeView treeView, string path)
-        {
+        private static void ListDirectory(TreeView treeView, string path) {
             var stack = new Stack<TreeNode>();
             var rootDirectory = new DirectoryInfo(path);
             var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
             stack.Push(node);
 
-            while (stack.Count > 0)
-            {
+            while (stack.Count > 0) {
                 var currentNode = stack.Pop();
                 var directoryInfo = (DirectoryInfo)currentNode.Tag;
-                foreach (var directory in directoryInfo.GetDirectories())
-                {
+                foreach (var directory in directoryInfo.GetDirectories()) {
                     var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
                     currentNode.Nodes.Add(childDirectoryNode);
                     stack.Push(childDirectoryNode);
@@ -279,41 +239,27 @@ namespace MinecraftDatapackStudio
             treeView.Nodes.Add(node);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void CloseApplication(object sender, EventArgs e) {
             Close();
             Application.Exit();
         }
 
-        private void digminecraftcomToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            WebBrowserDialog browser = new WebBrowserDialog();
-
-            browser.Show();
-            browser.LoadURL("https://digminecraft.com");
-        }
-
-        private void projectFileTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            try
-            {
+        private void OpenTabOnNodeClick(object sender, TreeNodeMouseClickEventArgs e) {
+            try {
                 string path = datapackRoot + "/" + e.Node.FullPath;
                 editorTabs.SelectedTab.Controls[0].Text = File.ReadAllText(path);
                 editorTabs.SelectedTab.Text = e.Node.Text;
 
                 activeFile = path;
-            }
-            catch (Exception) { }
+            } catch (Exception) { }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void SaveOpenFile(object sender, EventArgs e) {
             Utilities.WriteFile(activeFile, editorTabs.SelectedTab.Controls[0].Text);
             editorTabs.SelectedTab.Text = editorTabs.SelectedTab.Text.Replace("*", "");
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {   
+        private void ShowSaveFileDialog(object sender, EventArgs e) {
             saveFileDialog.Filter = "*.*|All Files";
             saveFileDialog.DefaultExt = "*.*";
             saveFileDialog.Title = "Save File As...";
@@ -322,38 +268,39 @@ namespace MinecraftDatapackStudio
             saveFileDialog.ShowDialog();
         }
 
-        private void OnFilePicked(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        private void OnFilePicked(object sender, System.ComponentModel.CancelEventArgs e) {
             Utilities.WriteFile(saveFileDialog.FileName, editorTabs.SelectedTab.Controls[0].Text);
         }
 
-        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void ZoomInEditor(object sender, EventArgs e) {
             ((Scintilla)editorTabs.SelectedTab.Controls[0]).ZoomIn();
         }
 
-        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void ZoomOutEditor(object sender, EventArgs e) {
             ((Scintilla)editorTabs.SelectedTab.Controls[0]).ZoomOut();
         }
 
-        private void closeTabToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(editorTabs.SelectedIndex >= 0)
+        private void CloseActiveTab(object sender, EventArgs e) {
+            if (editorTabs.SelectedIndex >= 0)
                 editorTabs.TabPages.RemoveAt(editorTabs.SelectedIndex);
         }
 
-        private void minecraftWikiToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void OpenSite_MinecraftWiki(object sender, EventArgs e) {
             WebBrowserDialog browser = new WebBrowserDialog();
 
             browser.Show();
-            browser.LoadURL("https://minecraft.fandom.com/");  
+            browser.LoadURL("https://minecraft.fandom.com/");
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            new WelcomeDialog().ShowDialog();
+        private void OpenSite_DigMinecraft(object sender, EventArgs e) {
+            WebBrowserDialog browser = new WebBrowserDialog();
+
+            browser.Show();
+            browser.LoadURL("https://digminecraft.com");
+        }
+
+        private void ShowAboutDialog(object sender, EventArgs e) {
+            new AboutForm().ShowDialog();
         }
     }
 }

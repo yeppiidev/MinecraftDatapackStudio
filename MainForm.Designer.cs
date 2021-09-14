@@ -108,14 +108,13 @@
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.addToolStripMenuItem.Text = "&Add Element";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // functionToolStripMenuItem
             // 
             this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
             this.functionToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.functionToolStripMenuItem.Text = "Function";
-            this.functionToolStripMenuItem.Click += new System.EventHandler(this.functionToolStripMenuItem_Click);
+            this.functionToolStripMenuItem.Click += new System.EventHandler(this.OnAddFunctionButtonClick);
             // 
             // lootTableToolStripMenuItem
             // 
@@ -213,7 +212,7 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.newToolStripMenuItem.Text = "&New Project";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.ShowNewProjectDialog);
             // 
             // openToolStripMenuItem
             // 
@@ -237,7 +236,7 @@
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveOpenFile);
             // 
             // toolStripMenuItem1
             // 
@@ -246,7 +245,7 @@
             | System.Windows.Forms.Keys.S)));
             this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.toolStripMenuItem1.Text = "Save &As...";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ShowSaveFileDialog);
             // 
             // seperator2
             // 
@@ -259,7 +258,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.CloseApplication);
             // 
             // editToolStripMenuItem
             // 
@@ -359,7 +358,7 @@
             | System.Windows.Forms.Keys.Up)));
             this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
-            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
+            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.ZoomInEditor);
             // 
             // zoomOutToolStripMenuItem
             // 
@@ -368,7 +367,7 @@
             | System.Windows.Forms.Keys.Down)));
             this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
-            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
+            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.ZoomOutEditor);
             // 
             // toolStripSeparator1
             // 
@@ -382,7 +381,7 @@
             | System.Windows.Forms.Keys.W)));
             this.closeTabToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.closeTabToolStripMenuItem.Text = "Close Tab";
-            this.closeTabToolStripMenuItem.Click += new System.EventHandler(this.closeTabToolStripMenuItem_Click);
+            this.closeTabToolStripMenuItem.Click += new System.EventHandler(this.CloseActiveTab);
             // 
             // projectToolStripMenuItem
             // 
@@ -408,7 +407,7 @@
             | System.Windows.Forms.Keys.N)));
             this.addFunctionToolBtn.Size = new System.Drawing.Size(196, 22);
             this.addFunctionToolBtn.Text = "Function";
-            this.addFunctionToolBtn.Click += new System.EventHandler(this.addFunctionToolBtn_Click);
+            this.addFunctionToolBtn.Click += new System.EventHandler(this.OnAddFunctionMenuItemClick);
             // 
             // addLootTableToolBtn
             // 
@@ -455,35 +454,34 @@
             this.digminecraftcomToolStripMenuItem,
             this.minecraftWikiToolStripMenuItem});
             this.tutorialsToolBtn.Name = "tutorialsToolBtn";
-            this.tutorialsToolBtn.Size = new System.Drawing.Size(147, 22);
+            this.tutorialsToolBtn.Size = new System.Drawing.Size(180, 22);
             this.tutorialsToolBtn.Text = "Wiki/Tutorials";
-            this.tutorialsToolBtn.Click += new System.EventHandler(this.contentsToolStripMenuItem_Click);
             // 
             // digminecraftcomToolStripMenuItem
             // 
             this.digminecraftcomToolStripMenuItem.Name = "digminecraftcomToolStripMenuItem";
-            this.digminecraftcomToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.digminecraftcomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.digminecraftcomToolStripMenuItem.Text = "DigMinecraft";
-            this.digminecraftcomToolStripMenuItem.Click += new System.EventHandler(this.digminecraftcomToolStripMenuItem_Click);
+            this.digminecraftcomToolStripMenuItem.Click += new System.EventHandler(this.OpenSite_DigMinecraft);
             // 
             // minecraftWikiToolStripMenuItem
             // 
             this.minecraftWikiToolStripMenuItem.Name = "minecraftWikiToolStripMenuItem";
-            this.minecraftWikiToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.minecraftWikiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.minecraftWikiToolStripMenuItem.Text = "Minecraft Wiki";
-            this.minecraftWikiToolStripMenuItem.Click += new System.EventHandler(this.minecraftWikiToolStripMenuItem_Click);
+            this.minecraftWikiToolStripMenuItem.Click += new System.EventHandler(this.OpenSite_MinecraftWiki);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.ShowAboutDialog);
             // 
             // statusBar
             // 
@@ -503,8 +501,7 @@
             this.projectFileTree.ShowNodeToolTips = true;
             this.projectFileTree.Size = new System.Drawing.Size(218, 512);
             this.projectFileTree.TabIndex = 2;
-            this.projectFileTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectFileTree_AfterSelect);
-            this.projectFileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.projectFileTree_NodeMouseDoubleClick);
+            this.projectFileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OpenTabOnNodeClick);
             // 
             // editorTabs
             // 
@@ -569,8 +566,8 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Minecraft Datapack Studio";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.Load += new System.EventHandler(this.OnFormLoad);
+            this.Shown += new System.EventHandler(this.OnFormShown);
             this.projectTreeContextMenu.ResumeLayout(false);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();

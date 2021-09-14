@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace MinecraftDatapackStudio.Data
-{
-    public class VersionManifest
-    {
-        public class latest
-        {
+namespace MinecraftDatapackStudio.Data {
+    public class VersionManifest {
+        public class latest {
             public string release { get; set; }
             public string snapshot { get; set; }
         }
@@ -13,8 +10,7 @@ namespace MinecraftDatapackStudio.Data
         public List<Version> versions;
     }
 
-    public class Version
-    {
+    public class Version {
         public string id { get; set; }
         public string type { get; set; }
         public string url { get; set; }

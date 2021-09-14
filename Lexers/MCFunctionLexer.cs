@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace MinecraftDatapackStudio.Lexers
-{
-    public class MCFunctionLexer
-    {
+namespace MinecraftDatapackStudio.Lexers {
+    public class MCFunctionLexer {
         public const int StyleDefault = 0;
         public const int StyleKeyword = 1;
         public const int StyleIdentifier = 2;
@@ -23,8 +21,7 @@ namespace MinecraftDatapackStudio.Lexers
 
         private HashSet<string> keywords;
 
-        public void Style(Scintilla scintilla, int startPos, int endPos)
-        {
+        public void Style(Scintilla scintilla, int startPos, int endPos) {
             // Back up to the line start
             var line = scintilla.LineFromPosition(startPos);
             startPos = scintilla.Lines[line].Position;
@@ -34,65 +31,48 @@ namespace MinecraftDatapackStudio.Lexers
 
             // Start styling
             scintilla.StartStyling(startPos);
-            while (startPos < endPos)
-            {
+            while (startPos < endPos) {
                 var c = (char)scintilla.GetCharAt(startPos);
 
             REPROCESS:
-                switch (state)
-                {
+                switch (state) {
                     case STATE_UNKNOWN:
-                        if (c == '"')
-                        {
+                        if (c == '"') {
                             // Start of "string"
                             scintilla.SetStyling(1, StyleString);
                             state = STATE_STRING;
-                        }
-                        else if (Char.IsDigit(c))
-                        {
+                        } else if (Char.IsDigit(c)) {
                             state = STATE_NUMBER;
                             goto REPROCESS;
-                        }
-                        else if (Char.IsLetter(c))
-                        {
+                        } else if (Char.IsLetter(c)) {
                             state = STATE_IDENTIFIER;
                             goto REPROCESS;
-                        }
-                        else
-                        {
+                        } else {
                             // Everything else
                             scintilla.SetStyling(1, StyleDefault);
                         }
                         break;
 
                     case STATE_STRING:
-                        if (c == '"')
-                        {
+                        if (c == '"') {
                             length++;
                             scintilla.SetStyling(length, StyleString);
                             length = 0;
                             state = STATE_UNKNOWN;
-                        }
-                        else if (c == '#')
-                        {
+                        } else if (c == '#') {
                             length++;
                             scintilla.SetStyling(length, StyleComment);
                             length = 0;
                             state = STATE_UNKNOWN;
-                        }
-                        else
-                        {
+                        } else {
                             length++;
                         }
                         break;
 
                     case STATE_NUMBER:
-                        if (Char.IsDigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F') || c == 'x')
-                        {
+                        if (Char.IsDigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F') || c == 'x') {
                             length++;
-                        }
-                        else
-                        {
+                        } else {
                             scintilla.SetStyling(length, StyleNumber);
                             length = 0;
                             state = STATE_UNKNOWN;
@@ -101,12 +81,9 @@ namespace MinecraftDatapackStudio.Lexers
                         break;
 
                     case STATE_IDENTIFIER:
-                        if (Char.IsLetterOrDigit(c))
-                        {
+                        if (Char.IsLetterOrDigit(c)) {
                             length++;
-                        }
-                        else
-                        {
+                        } else {
                             var style = StyleIdentifier;
                             var identifier = scintilla.GetTextRange(startPos - length, length);
                             if (keywords.Contains(identifier))
@@ -124,8 +101,7 @@ namespace MinecraftDatapackStudio.Lexers
             }
         }
 
-        public MCFunctionLexer(string keywords)
-        {
+        public MCFunctionLexer(string keywords) {
             // Put keywords in a HashSet
             var list = Regex.Split(keywords ?? string.Empty, @"\s+").Where(l => !string.IsNullOrEmpty(l));
             this.keywords = new HashSet<string>(list);
