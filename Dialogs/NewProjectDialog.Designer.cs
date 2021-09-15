@@ -102,7 +102,7 @@
             // createProjectButton
             // 
             this.createProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.createProjectButton.Location = new System.Drawing.Point(457, 9);
+            this.createProjectButton.Location = new System.Drawing.Point(376, 9);
             this.createProjectButton.Name = "createProjectButton";
             this.createProjectButton.Size = new System.Drawing.Size(75, 23);
             this.createProjectButton.TabIndex = 6;
@@ -113,7 +113,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(376, 9);
+            this.cancelButton.Location = new System.Drawing.Point(457, 9);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 5;

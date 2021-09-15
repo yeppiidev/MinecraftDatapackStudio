@@ -344,6 +344,12 @@ namespace MinecraftDatapackStudio {
         private void ShowAboutDialog(object sender, EventArgs e) {
             new AboutForm().ShowDialog();
         }
+
+        private void ShowPreferences(object sender, EventArgs e) {
+            SettingsDialog settingsDialog = new SettingsDialog();
+
+            settingsDialog.ShowDialog();
+        }
     }
 }
 

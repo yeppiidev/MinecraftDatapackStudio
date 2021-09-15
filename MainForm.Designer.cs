@@ -83,9 +83,9 @@
             this.projectFileTree = new System.Windows.Forms.TreeView();
             this.editorTabs = new System.Windows.Forms.TabControl();
             this.welcomeTab = new System.Windows.Forms.TabPage();
-            this.welcomeLbl = new System.Windows.Forms.Label();
-            this.whatsNew = new System.Windows.Forms.Label();
             this.whatsNewBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
+            this.whatsNew = new System.Windows.Forms.Label();
+            this.welcomeLbl = new System.Windows.Forms.Label();
             this.projectTreeContextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.editorTabs.SuspendLayout();
@@ -399,7 +399,7 @@
             this.addFunctionToolBtn,
             this.addLootTableToolBtn});
             this.addElementToolBtn.Name = "addElementToolBtn";
-            this.addElementToolBtn.Size = new System.Drawing.Size(142, 22);
+            this.addElementToolBtn.Size = new System.Drawing.Size(180, 22);
             this.addElementToolBtn.Text = "&Add Element";
             // 
             // addFunctionToolBtn
@@ -433,6 +433,7 @@
             | System.Windows.Forms.Keys.P)));
             this.preferencesToolBtn.Size = new System.Drawing.Size(208, 22);
             this.preferencesToolBtn.Text = "&Preferences";
+            this.preferencesToolBtn.Click += new System.EventHandler(this.ShowPreferences);
             // 
             // pluginsToolBtn
             // 
@@ -531,6 +532,25 @@
             this.welcomeTab.Text = "Welcome";
             this.welcomeTab.UseVisualStyleBackColor = true;
             // 
+            // whatsNewBrowser
+            // 
+            this.whatsNewBrowser.ActivateBrowserOnCreation = false;
+// TODO: Code generation for '' failed because of Exception 'Invalid Primitive Type: System.IntPtr. Consider using CodeObjectCreateExpression.'.
+            this.whatsNewBrowser.Location = new System.Drawing.Point(18, 105);
+            this.whatsNewBrowser.Name = "whatsNewBrowser";
+            this.whatsNewBrowser.Size = new System.Drawing.Size(531, 361);
+            this.whatsNewBrowser.TabIndex = 2;
+            // 
+            // whatsNew
+            // 
+            this.whatsNew.AutoSize = true;
+            this.whatsNew.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F);
+            this.whatsNew.Location = new System.Drawing.Point(38, 70);
+            this.whatsNew.Name = "whatsNew";
+            this.whatsNew.Size = new System.Drawing.Size(104, 21);
+            this.whatsNew.TabIndex = 1;
+            this.whatsNew.Text = "What\'s New?";
+            // 
             // welcomeLbl
             // 
             this.welcomeLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -543,25 +563,6 @@
             this.welcomeLbl.Size = new System.Drawing.Size(453, 39);
             this.welcomeLbl.TabIndex = 0;
             this.welcomeLbl.Text = "Welcome to Datapack Studio!";
-            // 
-            // whatsNew
-            // 
-            this.whatsNew.AutoSize = true;
-            this.whatsNew.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F);
-            this.whatsNew.Location = new System.Drawing.Point(38, 70);
-            this.whatsNew.Name = "whatsNew";
-            this.whatsNew.Size = new System.Drawing.Size(104, 21);
-            this.whatsNew.TabIndex = 1;
-            this.whatsNew.Text = "What\'s New?";
-            // 
-            // whatsNewBrowser
-            // 
-            this.whatsNewBrowser.ActivateBrowserOnCreation = false;
-// TODO: Code generation for '' failed because of Exception 'Invalid Primitive Type: System.IntPtr. Consider using CodeObjectCreateExpression.'.
-            this.whatsNewBrowser.Location = new System.Drawing.Point(18, 105);
-            this.whatsNewBrowser.Name = "whatsNewBrowser";
-            this.whatsNewBrowser.Size = new System.Drawing.Size(531, 361);
-            this.whatsNewBrowser.TabIndex = 2;
             // 
             // MainForm
             // 

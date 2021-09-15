@@ -13,5 +13,9 @@ namespace MinecraftDatapackStudio.Dialogs {
         public SettingsDialog() {
             InitializeComponent();
         }
+
+        private void OnFormLoad(object sender, EventArgs e) {
+            applyBtn.Enabled = false;
+        }
     }
 }
