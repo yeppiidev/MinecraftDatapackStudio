@@ -2,6 +2,7 @@
 using MinecraftDatapackStudio.Data;
 using MinecraftDatapackStudio.Data.JSONContainers;
 using MinecraftDatapackStudio.Dialogs;
+using MinecraftDatapackStudio.Theme;
 using ScintillaNET;
 using System;
 using System.Collections.Generic;
@@ -38,12 +39,47 @@ namespace MinecraftDatapackStudio {
             Context = this;
         }
 
+        public void ChangeEditorTheme(ColorScheme scheme, ref Scintilla control) {
+                control.StyleResetDefault();
+                control.Styles[Style.Default].Font = "Consolas";
+                control.Styles[Style.Default].Size = 10;
+                control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
+                control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
+                control.Styles[Style.LineNumber].ForeColor = scheme.Editor.ForeColor;
+                control.Styles[Style.LineNumber].BackColor = scheme.Editor.BackColor;
+                control.StyleClearAll();
+
+                control.Styles[Style.Python.CommentLine].ForeColor = scheme.CommentLine.ForeColor; // Green
+                control.Styles[Style.Python.Word].ForeColor = scheme.Word.ForeColor;
+                control.Styles[Style.Python.Word2].ForeColor = scheme.Word2.ForeColor;
+                control.Styles[Style.Python.String].ForeColor = scheme.String.ForeColor;
+        }
+
+        public void ChangeEditorThemes(ColorScheme scheme) {
+            foreach (Control tabControl in editorTabs.Controls) {
+                Scintilla control = (Scintilla) tabControl;
+
+                control.StyleResetDefault();
+                control.Styles[Style.Default].Font = "Consolas";
+                control.Styles[Style.Default].Size = 10;
+                control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
+                control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
+                control.StyleClearAll();
+
+                control.Styles[Style.Python.CommentLine].ForeColor = scheme.CommentLine.ForeColor; // Green
+                control.Styles[Style.Python.Word].ForeColor = scheme.Word.ForeColor;
+                control.Styles[Style.Python.Word2].ForeColor = scheme.Word2.ForeColor;
+                control.Styles[Style.Python.String].ForeColor = scheme.String.ForeColor;
+            }
+        }
+
         private void OnFormLoad(object sender, EventArgs e) {
-            SetupEditor(ref scintilla);
+            whatsNewBrowser.Load("https://yeppiidev.github.io/MinecraftDatapackStudio/CHANGELOG.html");
         }
 
         private void OnFormShown(object sender, EventArgs e) {
-            new WelcomeDialog().ShowDialog();
+            // WIP
+            editorToolStripMenuItem.Enabled = false;
         }
 
         private void ShowNewProjectDialog(object sender, EventArgs e) {
@@ -51,6 +87,12 @@ namespace MinecraftDatapackStudio {
         }
 
         public void AddTabPage() {
+            if (!(editorTabs.SelectedTab.Controls[0] is Scintilla)) {
+                editorTabs.TabPages.RemoveAt(editorTabs.SelectedIndex);
+            }
+
+            editorToolStripMenuItem.Enabled = true;
+
             TabPage newPage = new TabPage("untitled.mcfunction");
             Scintilla control = new Scintilla() {
                 Dock = DockStyle.Fill,
@@ -62,6 +104,8 @@ namespace MinecraftDatapackStudio {
             newPage.Controls.Add(control);
             editorTabs.TabPages.Add(newPage);
             tabs.Add(newPage, control);
+
+            editorTabs.SelectedTab = newPage;
         }
 
         private void OnAddFunctionMenuItemClick(object sender, EventArgs e) {
@@ -101,21 +145,14 @@ namespace MinecraftDatapackStudio {
 
             control.Lexer = Lexer.Python;
 
-            control.StyleResetDefault();
-            control.Styles[Style.Default].Font = "Consolas";
-            control.Styles[Style.Default].Size = 10;
-            control.StyleClearAll();
-
-            control.Styles[Style.Python.CommentLine].ForeColor = Color.DarkGreen; // Green
-            control.Styles[Style.Python.Word].ForeColor = Color.Blue;
-            control.Styles[Style.Python.Word2].ForeColor = Color.Blue;
-            control.Styles[Style.Python.String].ForeColor = Color.Brown;
+            ChangeEditorTheme(new DarkColorScheme(), ref control);
 
             control.Margins[0].Width = 16;
 
             control.SetKeywords(0, keywords);
             control.SetKeywords(1, selectors);
         }
+
 
         private void OnEditorTextChange(object sender, EventArgs e) {
             // Did the number of characters in the line number display change?
@@ -286,6 +323,8 @@ namespace MinecraftDatapackStudio {
         private void CloseActiveTab(object sender, EventArgs e) {
             if (editorTabs.SelectedIndex >= 0)
                 editorTabs.TabPages.RemoveAt(editorTabs.SelectedIndex);
+            if (editorTabs.TabCount <= 0)
+                editorToolStripMenuItem.Enabled = false;
         }
 
         private void OpenSite_MinecraftWiki(object sender, EventArgs e) {

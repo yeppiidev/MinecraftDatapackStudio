@@ -171,17 +171,13 @@
     <Compile Include="Dialogs\WebBrowserDialog.Designer.cs">
       <DependentUpon>WebBrowserDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\WelcomeDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\WelcomeDialog.Designer.cs">
-      <DependentUpon>WelcomeDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Theme\ColorScheme.cs" />
+    <Compile Include="Theme\DarkColorScheme.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Lexers\MCFunctionLexer.cs" />
     <Compile Include="MainForm.cs">
@@ -200,9 +196,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\WebBrowserDialog.resx">
       <DependentUpon>WebBrowserDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\WelcomeDialog.resx">
-      <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

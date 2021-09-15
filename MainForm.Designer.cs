@@ -82,12 +82,14 @@
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.projectFileTree = new System.Windows.Forms.TreeView();
             this.editorTabs = new System.Windows.Forms.TabControl();
-            this.untitledNewTab = new System.Windows.Forms.TabPage();
-            this.scintilla = new ScintillaNET.Scintilla();
+            this.welcomeTab = new System.Windows.Forms.TabPage();
+            this.welcomeLbl = new System.Windows.Forms.Label();
+            this.whatsNew = new System.Windows.Forms.Label();
+            this.whatsNewBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.projectTreeContextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.editorTabs.SuspendLayout();
-            this.untitledNewTab.SuspendLayout();
+            this.welcomeTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // projectTreeContextMenu
@@ -454,32 +456,32 @@
             this.digminecraftcomToolStripMenuItem,
             this.minecraftWikiToolStripMenuItem});
             this.tutorialsToolBtn.Name = "tutorialsToolBtn";
-            this.tutorialsToolBtn.Size = new System.Drawing.Size(180, 22);
+            this.tutorialsToolBtn.Size = new System.Drawing.Size(147, 22);
             this.tutorialsToolBtn.Text = "Wiki/Tutorials";
             // 
             // digminecraftcomToolStripMenuItem
             // 
             this.digminecraftcomToolStripMenuItem.Name = "digminecraftcomToolStripMenuItem";
-            this.digminecraftcomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.digminecraftcomToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.digminecraftcomToolStripMenuItem.Text = "DigMinecraft";
             this.digminecraftcomToolStripMenuItem.Click += new System.EventHandler(this.OpenSite_DigMinecraft);
             // 
             // minecraftWikiToolStripMenuItem
             // 
             this.minecraftWikiToolStripMenuItem.Name = "minecraftWikiToolStripMenuItem";
-            this.minecraftWikiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.minecraftWikiToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.minecraftWikiToolStripMenuItem.Text = "Minecraft Wiki";
             this.minecraftWikiToolStripMenuItem.Click += new System.EventHandler(this.OpenSite_MinecraftWiki);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(144, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.ShowAboutDialog);
             // 
@@ -508,7 +510,7 @@
             this.editorTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.editorTabs.Controls.Add(this.untitledNewTab);
+            this.editorTabs.Controls.Add(this.welcomeTab);
             this.editorTabs.HotTrack = true;
             this.editorTabs.Location = new System.Drawing.Point(222, 26);
             this.editorTabs.Name = "editorTabs";
@@ -516,40 +518,50 @@
             this.editorTabs.Size = new System.Drawing.Size(574, 511);
             this.editorTabs.TabIndex = 3;
             // 
-            // untitledNewTab
+            // welcomeTab
             // 
-            this.untitledNewTab.Controls.Add(this.scintilla);
-            this.untitledNewTab.Location = new System.Drawing.Point(4, 22);
-            this.untitledNewTab.Name = "untitledNewTab";
-            this.untitledNewTab.Padding = new System.Windows.Forms.Padding(3);
-            this.untitledNewTab.Size = new System.Drawing.Size(566, 485);
-            this.untitledNewTab.TabIndex = 0;
-            this.untitledNewTab.Text = "untitled.mcfunction";
-            this.untitledNewTab.UseVisualStyleBackColor = true;
+            this.welcomeTab.Controls.Add(this.whatsNewBrowser);
+            this.welcomeTab.Controls.Add(this.whatsNew);
+            this.welcomeTab.Controls.Add(this.welcomeLbl);
+            this.welcomeTab.Location = new System.Drawing.Point(4, 22);
+            this.welcomeTab.Name = "welcomeTab";
+            this.welcomeTab.Padding = new System.Windows.Forms.Padding(3);
+            this.welcomeTab.Size = new System.Drawing.Size(566, 485);
+            this.welcomeTab.TabIndex = 0;
+            this.welcomeTab.Text = "Welcome";
+            this.welcomeTab.UseVisualStyleBackColor = true;
             // 
-            // scintilla
+            // welcomeLbl
             // 
-            this.scintilla.AutoCDropRestOfWord = true;
-            this.scintilla.AutoCIgnoreCase = true;
-            this.scintilla.AutoCMaxHeight = 9;
-            this.scintilla.BiDirectionality = ScintillaNET.BiDirectionalDisplayType.Disabled;
-            this.scintilla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scintilla.CaretStyle = ScintillaNET.CaretStyle.Block;
-            this.scintilla.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scintilla.EdgeColor = System.Drawing.Color.DarkGray;
-            this.scintilla.Font = new System.Drawing.Font("Consolas", 9F);
-            this.scintilla.Lexer = ScintillaNET.Lexer.Python;
-            this.scintilla.Location = new System.Drawing.Point(3, 3);
-            this.scintilla.MultipleSelection = true;
-            this.scintilla.Name = "scintilla";
-            this.scintilla.ScrollWidth = 140;
-            this.scintilla.Size = new System.Drawing.Size(560, 479);
-            this.scintilla.TabIndents = true;
-            this.scintilla.TabIndex = 0;
-            this.scintilla.Text = "# Example mcfunction";
-            this.scintilla.UseRightToLeftReadingLayout = false;
-            this.scintilla.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleAfterIndent;
-            this.scintilla.WrapMode = ScintillaNET.WrapMode.None;
+            this.welcomeLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.welcomeLbl.AutoSize = true;
+            this.welcomeLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcomeLbl.Location = new System.Drawing.Point(20, 18);
+            this.welcomeLbl.Name = "welcomeLbl";
+            this.welcomeLbl.Size = new System.Drawing.Size(453, 39);
+            this.welcomeLbl.TabIndex = 0;
+            this.welcomeLbl.Text = "Welcome to Datapack Studio!";
+            // 
+            // whatsNew
+            // 
+            this.whatsNew.AutoSize = true;
+            this.whatsNew.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F);
+            this.whatsNew.Location = new System.Drawing.Point(38, 70);
+            this.whatsNew.Name = "whatsNew";
+            this.whatsNew.Size = new System.Drawing.Size(104, 21);
+            this.whatsNew.TabIndex = 1;
+            this.whatsNew.Text = "What\'s New?";
+            // 
+            // whatsNewBrowser
+            // 
+            this.whatsNewBrowser.ActivateBrowserOnCreation = false;
+// TODO: Code generation for '' failed because of Exception 'Invalid Primitive Type: System.IntPtr. Consider using CodeObjectCreateExpression.'.
+            this.whatsNewBrowser.Location = new System.Drawing.Point(18, 105);
+            this.whatsNewBrowser.Name = "whatsNewBrowser";
+            this.whatsNewBrowser.Size = new System.Drawing.Size(531, 361);
+            this.whatsNewBrowser.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -572,7 +584,8 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.editorTabs.ResumeLayout(false);
-            this.untitledNewTab.ResumeLayout(false);
+            this.welcomeTab.ResumeLayout(false);
+            this.welcomeTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -611,7 +624,7 @@
         private System.Windows.Forms.ToolStripMenuItem addLootTableToolBtn;
         private System.Windows.Forms.TreeView projectFileTree;
         private System.Windows.Forms.TabControl editorTabs;
-        private System.Windows.Forms.TabPage untitledNewTab;
+        private System.Windows.Forms.TabPage welcomeTab;
         private System.Windows.Forms.ContextMenuStrip projectTreeContextMenu;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
@@ -624,7 +637,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private ScintillaNET.Scintilla scintilla;
         private System.Windows.Forms.ToolStripMenuItem digminecraftcomToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minecraftWikiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -634,6 +646,9 @@
         private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem closeTabToolStripMenuItem;
+        private CefSharp.WinForms.ChromiumWebBrowser whatsNewBrowser;
+        private System.Windows.Forms.Label whatsNew;
+        private System.Windows.Forms.Label welcomeLbl;
     }
 }
 
