@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MinecraftDatapackStudio.Data {
     public class AppPreferences {
-        public Editor editor;
+        public Editor Editor;
     }
 
     public class Editor {

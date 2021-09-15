@@ -21,6 +21,7 @@ namespace MinecraftDatapackStudio.Dialogs {
         private void OnFormLoad(object sender, EventArgs e) {
             applyBtn.Enabled = false;
             fontPicker.Apply += OnFontApply;
+            colorSchemePicker.SelectedIndex = 0;
         }
 
         private void OnFontApply(object sender, EventArgs e) {
@@ -44,12 +45,12 @@ namespace MinecraftDatapackStudio.Dialogs {
         }
 
         private void applyBtn_Click(object sender, EventArgs e) {
-            
+            ApplySettings();
         }
 
         public void ApplySettings() {
             preferences = new AppPreferences() {
-                editor = new Editor() {
+                Editor = new Editor() {
                     Font = new Font(fontTextBox.Text, (float)fontSizeCounter.Value),
                     FontSize = (int)fontSizeCounter.Value,
                     Theme = colorSchemePicker.SelectedItem.ToString()
@@ -57,10 +58,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             };
 
             string settingsJson = JsonConvert.SerializeObject(preferences);
-
-            MessageBox.Show(settingsJson);
-
-            /*Utilities.PutConfig("SettingsJSON", settingsJson);*/
+            Utilities.PutConfig("SettingsJSON", settingsJson);
         }
 
         private void colorSchemePicker_SelectedValueChanged(object sender, EventArgs e) {
@@ -73,6 +71,10 @@ namespace MinecraftDatapackStudio.Dialogs {
 
         private void fontTextBox_TextChanged(object sender, EventArgs e) {
             applyBtn.Enabled = true;
+        }
+
+        private void okBtn_Click(object sender, EventArgs e) {
+            ApplySettings();
         }
     }
 }
