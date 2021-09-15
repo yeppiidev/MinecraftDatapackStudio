@@ -62,5 +62,17 @@ namespace MinecraftDatapackStudio.Dialogs {
 
             /*Utilities.PutConfig("SettingsJSON", settingsJson);*/
         }
+
+        private void colorSchemePicker_SelectedValueChanged(object sender, EventArgs e) {
+            applyBtn.Enabled = true;
+        }
+
+        private void fontSizeCounter_ValueChanged(object sender, EventArgs e) {
+            applyBtn.Enabled = true;
+        }
+
+        private void fontTextBox_TextChanged(object sender, EventArgs e) {
+            applyBtn.Enabled = true;
+        }
     }
 }

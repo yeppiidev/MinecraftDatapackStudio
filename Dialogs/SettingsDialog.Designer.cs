@@ -192,6 +192,7 @@
             this.colorSchemePicker.Name = "colorSchemePicker";
             this.colorSchemePicker.Size = new System.Drawing.Size(225, 21);
             this.colorSchemePicker.TabIndex = 1;
+            this.colorSchemePicker.SelectedValueChanged += new System.EventHandler(this.colorSchemePicker_SelectedValueChanged);
             // 
             // fontSizeCounter
             // 
@@ -199,6 +200,7 @@
             this.fontSizeCounter.Name = "fontSizeCounter";
             this.fontSizeCounter.Size = new System.Drawing.Size(239, 20);
             this.fontSizeCounter.TabIndex = 0;
+            this.fontSizeCounter.ValueChanged += new System.EventHandler(this.fontSizeCounter_ValueChanged);
             // 
             // fontSize
             // 
@@ -231,6 +233,7 @@
             this.fontTextBox.Name = "fontTextBox";
             this.fontTextBox.Size = new System.Drawing.Size(169, 20);
             this.fontTextBox.TabIndex = 3;
+            this.fontTextBox.TextChanged += new System.EventHandler(this.fontTextBox_TextChanged);
             // 
             // chooseFontBtn
             // 
