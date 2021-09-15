@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackStudio.Constants;
+﻿using CefSharp;
+using MinecraftDatapackStudio.Constants;
 using MinecraftDatapackStudio.Data;
 using MinecraftDatapackStudio.Data.JSONContainers;
 using MinecraftDatapackStudio.Dialogs;
@@ -37,6 +38,14 @@ namespace MinecraftDatapackStudio {
             currentPack = new DatapackInfo();
             saveFileDialog = new SaveFileDialog();
             Context = this;
+            
+            whatsNewBrowser.FrameLoadEnd += FrameLoadEnd;
+        }
+
+        private void FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
+            if (e.Frame.IsMain) {
+                e.Browser.MainFrame.ExecuteJavaScriptAsync("document.body.style.overflow = 'hidden'");
+            }
         }
 
         public void ChangeEditorTheme(ColorScheme scheme, ref Scintilla control) {

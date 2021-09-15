@@ -399,7 +399,7 @@
             this.addFunctionToolBtn,
             this.addLootTableToolBtn});
             this.addElementToolBtn.Name = "addElementToolBtn";
-            this.addElementToolBtn.Size = new System.Drawing.Size(180, 22);
+            this.addElementToolBtn.Size = new System.Drawing.Size(142, 22);
             this.addElementToolBtn.Text = "&Add Element";
             // 
             // addFunctionToolBtn
@@ -535,17 +535,20 @@
             // whatsNewBrowser
             // 
             this.whatsNewBrowser.ActivateBrowserOnCreation = false;
+            this.whatsNewBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 // TODO: Code generation for '' failed because of Exception 'Invalid Primitive Type: System.IntPtr. Consider using CodeObjectCreateExpression.'.
-            this.whatsNewBrowser.Location = new System.Drawing.Point(18, 105);
+            this.whatsNewBrowser.Location = new System.Drawing.Point(21, 93);
             this.whatsNewBrowser.Name = "whatsNewBrowser";
-            this.whatsNewBrowser.Size = new System.Drawing.Size(531, 361);
+            this.whatsNewBrowser.Size = new System.Drawing.Size(527, 371);
             this.whatsNewBrowser.TabIndex = 2;
             // 
             // whatsNew
             // 
             this.whatsNew.AutoSize = true;
             this.whatsNew.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 12F);
-            this.whatsNew.Location = new System.Drawing.Point(38, 70);
+            this.whatsNew.Location = new System.Drawing.Point(23, 61);
             this.whatsNew.Name = "whatsNew";
             this.whatsNew.Size = new System.Drawing.Size(104, 21);
             this.whatsNew.TabIndex = 1;
@@ -558,7 +561,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.welcomeLbl.AutoSize = true;
             this.welcomeLbl.Font = new System.Drawing.Font("Microsoft YaHei UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.welcomeLbl.Location = new System.Drawing.Point(20, 18);
+            this.welcomeLbl.Location = new System.Drawing.Point(11, 13);
             this.welcomeLbl.Name = "welcomeLbl";
             this.welcomeLbl.Size = new System.Drawing.Size(453, 39);
             this.welcomeLbl.TabIndex = 0;

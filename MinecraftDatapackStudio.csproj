@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browser\ControlExtensions.cs" />
+    <Compile Include="Data\AppPreferences.cs" />
     <Compile Include="Data\DatapackInfo.cs" />
     <Compile Include="Data\DatapackVersion.cs" />
     <Compile Include="Data\JSONContainers\PackInfo.cs" />
