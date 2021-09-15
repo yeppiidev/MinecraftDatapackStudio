@@ -14,6 +14,7 @@
 # Credits/Libraries Used
 - Browser icons by [Icons8](https://icons8.com)
 - [CEFSharp](https://cefsharp.github.io/) - C# bindings for [CEF](https://bitbucket.org/chromiumembedded/cef/src/master/) (Chromium Embedded Framework)
+- [Scintilla.NET](https://github.com/jacobslusser/ScintillaNET/) - C# bindings for [Scintilla](https://www.scintilla.org) Editor Library
 
 # Contributors
 - **[yeppiidev](https://github.com/yeppiidev)** (author/owner)
