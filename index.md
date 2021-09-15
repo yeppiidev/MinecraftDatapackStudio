@@ -16,3 +16,10 @@ This application is experimental: It may contain bugs and exploits, use only if 
 # Contributors
 - **[yeppiidev](https://github.com/yeppiidev)** (author/owner)
 - [Progamezia](https://github.com/Aagney-github) (testing)
+
+# Credits
+- Browser icons by [Icons8](https://icons8.com)
+- [CEFSharp](https://cefsharp.github.io/) - C# bindings for [CEF](https://bitbucket.org/chromiumembedded/cef/src/master/) (Chromium Embedded Framework)
+
+# External Links
+- [Changelog](https://yeppiidev.github.io/MinecraftDatapackStudio/CHANGELOG.html)
