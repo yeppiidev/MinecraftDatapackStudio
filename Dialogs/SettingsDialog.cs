@@ -1,13 +1,9 @@
 ﻿using MinecraftDatapackStudio.Data;
+using MinecraftDatapackStudio.Properties;
+using MinecraftDatapackStudio.Theme;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio.Dialogs {
@@ -22,6 +18,26 @@ namespace MinecraftDatapackStudio.Dialogs {
             applyBtn.Enabled = false;
             fontPicker.Apply += OnFontApply;
             colorSchemePicker.SelectedIndex = 0;
+
+            try {
+                string settings = Properties.Settings.Default["SettingsJSON"].ToString();
+                if (settings != null && settings != "") {
+                    preferences = JsonConvert.DeserializeObject<AppPreferences>(settings);
+
+                    fontTextBox.Text = preferences.Editor.Font.Name;
+                    fontSizeCounter.Value = preferences.Editor.FontSize;
+
+                    if (preferences.Editor.Theme == "Default Dark") {
+                        MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                    }
+                } else {
+                    fontSizeCounter.Value = 14;
+                    fontTextBox.Text = "Consolas";
+                    string settingsJson = JsonConvert.SerializeObject(preferences);
+                    Utilities.PutConfig(settingsJson);
+                }
+            } catch (Exception) {
+            }
         }
 
         private void OnFontApply(object sender, EventArgs e) {
@@ -58,7 +74,8 @@ namespace MinecraftDatapackStudio.Dialogs {
             };
 
             string settingsJson = JsonConvert.SerializeObject(preferences);
-            Utilities.PutConfig("SettingsJSON", settingsJson);
+            Utilities.PutConfig(settingsJson);
+            applyBtn.Enabled = false;
         }
 
         private void colorSchemePicker_SelectedValueChanged(object sender, EventArgs e) {
