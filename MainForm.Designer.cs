@@ -34,6 +34,8 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lootTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,11 +98,13 @@
             // 
             this.projectTreeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
+            this.renameToolStripMenuItem,
+            this.deleteToolStripMenuItem1,
             this.toolStripSeparator2,
             this.deleteToolStripMenuItem,
             this.convertToToolStripMenuItem});
             this.projectTreeContextMenu.Name = "projectTreeContextMenu";
-            this.projectTreeContextMenu.Size = new System.Drawing.Size(154, 76);
+            this.projectTreeContextMenu.Size = new System.Drawing.Size(143, 120);
             // 
             // addToolStripMenuItem
             // 
@@ -108,7 +112,7 @@
             this.functionToolStripMenuItem,
             this.lootTableToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.addToolStripMenuItem.Text = "&Add Element";
             // 
             // functionToolStripMenuItem
@@ -124,16 +128,30 @@
             this.lootTableToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.lootTableToolStripMenuItem.Text = "Loot Table";
             // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.renameToolStripMenuItem.Text = "Re&name";
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.deleteToolStripMenuItem1.Text = "&Delete";
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.OnDeleteItemClicked);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(139, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.deleteToolStripMenuItem.Text = "&Refresh Project";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.deleteToolStripMenuItem.Text = "&Refresh";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnRefreshProjectClicked);
             // 
             // convertToToolStripMenuItem
             // 
@@ -144,7 +162,7 @@
             this.toolStripMenuItem5,
             this.toolStripMenuItem6});
             this.convertToToolStripMenuItem.Name = "convertToToolStripMenuItem";
-            this.convertToToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.convertToToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.convertToToolStripMenuItem.Text = "C&onvert To...";
             // 
             // toolStripMenuItem2
@@ -499,12 +517,15 @@
             this.projectFileTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.projectFileTree.ContextMenuStrip = this.projectTreeContextMenu;
+            this.projectFileTree.LabelEdit = true;
             this.projectFileTree.Location = new System.Drawing.Point(1, 26);
             this.projectFileTree.Name = "projectFileTree";
             this.projectFileTree.ShowNodeToolTips = true;
             this.projectFileTree.Size = new System.Drawing.Size(218, 512);
             this.projectFileTree.TabIndex = 2;
+            this.projectFileTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.RenameFile);
             this.projectFileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OpenTabOnNodeClick);
+            this.projectFileTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnProjectTreeKeyDown);
             // 
             // editorTabs
             // 
@@ -653,6 +674,8 @@
         private CefSharp.WinForms.ChromiumWebBrowser whatsNewBrowser;
         private System.Windows.Forms.Label whatsNew;
         private System.Windows.Forms.Label welcomeLbl;
+        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
     }
 }
 
