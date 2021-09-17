@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio {
@@ -38,7 +37,7 @@ namespace MinecraftDatapackStudio {
             currentPack = new DatapackInfo();
             saveFileDialog = new SaveFileDialog();
             Context = this;
-            
+
             whatsNewBrowser.FrameLoadEnd += FrameLoadEnd;
         }
 
@@ -49,36 +48,29 @@ namespace MinecraftDatapackStudio {
         }
 
         public void ChangeEditorTheme(ColorScheme scheme, ref Scintilla control) {
-                control.StyleResetDefault();
-                control.Styles[Style.Default].Font = "Consolas";
-                control.Styles[Style.Default].Size = 10;
-                control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
-                control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
-                control.Styles[Style.LineNumber].ForeColor = scheme.Editor.ForeColor;
-                control.Styles[Style.LineNumber].BackColor = scheme.Editor.BackColor;
-                control.StyleClearAll();
+            control.StyleResetDefault();
+            control.CaretForeColor = scheme.Editor.CaretForeColor;
+            control.Styles[Style.Default].Font = "Consolas";
+            control.Styles[Style.Default].Size = 10;
+            control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
+            control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
+            control.StyleClearAll();
 
-                control.Styles[Style.Python.CommentLine].ForeColor = scheme.CommentLine.ForeColor; // Green
-                control.Styles[Style.Python.Word].ForeColor = scheme.Word.ForeColor;
-                control.Styles[Style.Python.Word2].ForeColor = scheme.Word2.ForeColor;
-                control.Styles[Style.Python.String].ForeColor = scheme.String.ForeColor;
+            control.Margins[0].BackColor = scheme.Editor.BackColor;
+            control.Markers[0].SetBackColor(scheme.Editor.BackColor);
+            control.Styles[Style.LineNumber].BackColor = scheme.Editor.MarginBackColor;
+
+            control.Styles[Style.Python.CommentLine].ForeColor = scheme.CommentLine.ForeColor; // Green
+            control.Styles[Style.Python.Word].ForeColor = scheme.Word.ForeColor;
+            control.Styles[Style.Python.Word2].ForeColor = scheme.Word2.ForeColor;
+            control.Styles[Style.Python.String].ForeColor = scheme.String.ForeColor;
         }
 
         public void ChangeEditorThemes(ColorScheme scheme) {
             foreach (Control tabControl in editorTabs.Controls) {
-                Scintilla control = (Scintilla) tabControl;
+                Scintilla control = (Scintilla)tabControl;
 
-                control.StyleResetDefault();
-                control.Styles[Style.Default].Font = "Consolas";
-                control.Styles[Style.Default].Size = 10;
-                control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
-                control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
-                control.StyleClearAll();
-
-                control.Styles[Style.Python.CommentLine].ForeColor = scheme.CommentLine.ForeColor; // Green
-                control.Styles[Style.Python.Word].ForeColor = scheme.Word.ForeColor;
-                control.Styles[Style.Python.Word2].ForeColor = scheme.Word2.ForeColor;
-                control.Styles[Style.Python.String].ForeColor = scheme.String.ForeColor;
+                ChangeEditorTheme(scheme, ref control);
             }
         }
 
@@ -96,16 +88,12 @@ namespace MinecraftDatapackStudio {
         }
 
         public void AddTabPage() {
-            if (!(editorTabs.SelectedTab.Controls[0] is Scintilla)) {
-                editorTabs.TabPages.RemoveAt(editorTabs.SelectedIndex);
-            }
-
             editorToolStripMenuItem.Enabled = true;
 
             TabPage newPage = new TabPage("untitled.mcfunction");
             Scintilla control = new Scintilla() {
                 Dock = DockStyle.Fill,
-            };   
+            };
 
             SetupEditor(ref control);
 
@@ -115,6 +103,11 @@ namespace MinecraftDatapackStudio {
             tabs.Add(newPage, control);
 
             editorTabs.SelectedTab = newPage;
+
+            if (!(editorTabs.SelectedTab.Controls[0] is Scintilla)) {
+                editorTabs.TabPages.RemoveAt(editorTabs.SelectedIndex);
+            }
+
         }
 
         private void OnAddFunctionMenuItemClick(object sender, EventArgs e) {
@@ -146,7 +139,6 @@ namespace MinecraftDatapackStudio {
             control.TabIndex = 0;
             control.Text = TemplateTexts.MCFunction.Header;
             control.UseRightToLeftReadingLayout = false;
-            control.ViewWhitespace = WhitespaceMode.VisibleAfterIndent;
             control.WrapMode = WrapMode.None;
             control.CharAdded += OnEditorCharAdd;
             control.KeyDown += OnEditorKeyDown;
@@ -233,8 +225,10 @@ namespace MinecraftDatapackStudio {
                 CreateDatapackRoot(projectFolder, packInfo.packId, json);
                 datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
             }
-            return true;
 
+            Context.editorTabs.TabPages.Clear();
+
+            return true;
         }
 
         private static void CreateDatapackRoot(string path, string packName, string mcmeta) {
@@ -265,6 +259,11 @@ namespace MinecraftDatapackStudio {
             ListDirectory(Context.projectFileTree, path);
         }
 
+        public void ReloadTreeView(TreeView treeView, string path) {
+            treeView.Nodes.Clear();
+            ListDirectory(treeView, path);
+        }
+
         private static void ListDirectory(TreeView treeView, string path) {
             var stack = new Stack<TreeNode>();
             var rootDirectory = new DirectoryInfo(path);
@@ -293,7 +292,10 @@ namespace MinecraftDatapackStudio {
 
         private void OpenTabOnNodeClick(object sender, TreeNodeMouseClickEventArgs e) {
             try {
-                string path = datapackRoot + "/" + e.Node.FullPath;
+                if (editorTabs.TabCount == 0)
+                    AddTabPage();
+
+                string path = Path.Combine(datapackRoot, e.Node.FullPath);
                 editorTabs.SelectedTab.Controls[0].Text = File.ReadAllText(path);
                 editorTabs.SelectedTab.Text = e.Node.Text;
 
@@ -358,6 +360,25 @@ namespace MinecraftDatapackStudio {
             SettingsDialog settingsDialog = new SettingsDialog();
 
             settingsDialog.ShowDialog();
+        }
+
+        private void RenameFile(object sender, NodeLabelEditEventArgs e) {
+
+        }
+
+        private void OnProjectTreeKeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.F2)
+                projectFileTree.SelectedNode.BeginEdit();
+            if (e.KeyCode == Keys.Escape)
+                projectFileTree.SelectedNode.EndEdit(true);
+        }
+
+        private void OnRefreshProjectClicked(object sender, EventArgs e) {
+            ReloadTreeView(projectFileTree, Path.Combine(datapackRoot, currentPack.packId));
+        }
+
+        private void OnDeleteItemClicked(object sender, EventArgs e) {
+            File.Delete(Path.Combine(Path.Combine(datapackRoot, currentPack.packId), projectFileTree.SelectedNode.FullPath));
         }
     }
 }
