@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace MinecraftDatapackStudio.Theme {
     public class ColorScheme {
@@ -22,6 +17,8 @@ namespace MinecraftDatapackStudio.Theme {
         public class Editor {
             public Color ForeColor;
             public Color BackColor;
+            public Color MarginBackColor;
+            public Color CaretForeColor;
         }
 
         public class String {
