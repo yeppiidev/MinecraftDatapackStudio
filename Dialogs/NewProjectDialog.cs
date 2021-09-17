@@ -9,8 +9,6 @@ using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio.Dialogs {
     public partial class NewProjectDialog : Form {
-        private List<string> versions;
-
         private string manifestDownloadPath = "./meta/minecraft/";
         private string manifestDownloadFile = "version_manifest.json";
         private string minecraftFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft");
@@ -44,7 +42,7 @@ namespace MinecraftDatapackStudio.Dialogs {
             return false;
         }
 
-        private async void OnFormLoad(object sender, EventArgs e) {
+        private void OnFormLoad(object sender, EventArgs e) {
             using (var client = new WebClient()) {
                 try {
                     if (!Directory.Exists(manifestDownloadPath)) {
@@ -85,7 +83,7 @@ namespace MinecraftDatapackStudio.Dialogs {
                     PackVersion.Add(version.Key, version.Value);
                 }
             } catch (Exception ex) {
-                errorText.Text = "Unable to retrieve versions!";
+                errorText.Text = $"Unable to retrieve versions: {ex.Message}";
                 errorText.Show();
             }
         }
