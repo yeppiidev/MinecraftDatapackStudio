@@ -9,8 +9,8 @@ namespace MinecraftDatapackStudio {
     public class Utilities {
         public Utilities() { }
 
-        public static void PutConfig(string key, string value) {
-            Properties.Settings.Default[key] = value;
+        public static void PutConfig(string value) {
+            Properties.Settings.Default.SettingsJSON = value;
             Properties.Settings.Default.Save();
         }
 
