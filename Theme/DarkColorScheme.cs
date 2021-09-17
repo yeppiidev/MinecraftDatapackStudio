@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinecraftDatapackStudio.Theme {
     public class DarkColorScheme : ColorScheme {
@@ -13,8 +9,10 @@ namespace MinecraftDatapackStudio.Theme {
             CommentLine.ForeColor = Color.FromArgb(127, 132, 142);
             Word.ForeColor = Color.FromArgb(97, 175, 239);
             Word2.ForeColor = Color.FromArgb(229, 192, 123);
-            Editor.BackColor = Color.FromArgb(54, 69, 79);
+            Editor.BackColor = Color.FromArgb(49, 58, 64);
+            Editor.MarginBackColor = Color.FromArgb(67, 79, 87);
             Editor.ForeColor = Color.FromArgb(245, 245, 245);
+            Editor.CaretForeColor = Color.White;
         }
     }
 }
