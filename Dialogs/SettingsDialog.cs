@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackStudio.Data;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using MinecraftDatapackStudio.Data;
 using MinecraftDatapackStudio.Properties;
 using MinecraftDatapackStudio.Theme;
 using Newtonsoft.Json;
@@ -12,10 +13,9 @@ namespace MinecraftDatapackStudio.Dialogs {
 
         public SettingsDialog() {
             InitializeComponent();
-        }
 
-        private void OnFormLoad(object sender, EventArgs e) {
             applyBtn.Enabled = false;
+
             fontPicker.Apply += OnFontApply;
             colorSchemePicker.SelectedIndex = 0;
 
@@ -26,8 +26,9 @@ namespace MinecraftDatapackStudio.Dialogs {
 
                     fontTextBox.Text = preferences.Editor.Font.Name;
                     fontSizeCounter.Value = preferences.Editor.FontSize;
+                    mcFolderPathBox.Text = preferences.FilePaths.MinecraftInstallationDirectory == "" ? MainForm.DefaultMinecraftFolder : preferences.FilePaths.MinecraftInstallationDirectory;
 
-                    switch(preferences.Editor.Theme) {
+                    switch (preferences.Editor.Theme) {
                         case "Default Dark":
                             MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
                             break;
@@ -38,6 +39,7 @@ namespace MinecraftDatapackStudio.Dialogs {
                             MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
                             break;
                     }
+                    colorSchemePicker.SelectedItem = preferences.Editor.Theme;
 
                 } else {
                     fontSizeCounter.Value = 14;
@@ -49,27 +51,22 @@ namespace MinecraftDatapackStudio.Dialogs {
             }
         }
 
+        private void OnFormLoad(object sender, EventArgs e) {
+            
+        }
+
         private void OnFontApply(object sender, EventArgs e) {
             fontTextBox.Text = fontPicker.Font.Name;
         }
 
-        private void Editor_Click(object sender, EventArgs e) {
-
+        private void OnChooseFontButtonClick(object sender, EventArgs e) {
+            if (fontPicker.ShowDialog() == DialogResult.OK) {
+                fontTextBox.Text = fontPicker.Font.Name;
+                fontSizeCounter.Value = (decimal) fontPicker.Font.SizeInPoints;
+            }
         }
 
-        private void EditorSettings_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void fontPickerLbl_Click(object sender, EventArgs e) {
-
-        }
-
-        private void chooseFontBtn_Click(object sender, EventArgs e) {
-            fontPicker.ShowDialog();
-        }
-
-        private void applyBtn_Click(object sender, EventArgs e) {
+        private void OnApplyButtonClick(object sender, EventArgs e) {
             ApplySettings();
         }
 
@@ -79,6 +76,9 @@ namespace MinecraftDatapackStudio.Dialogs {
                     Font = new Font(fontTextBox.Text, (float)fontSizeCounter.Value),
                     FontSize = (int)fontSizeCounter.Value,
                     Theme = colorSchemePicker.SelectedItem.ToString()
+                },
+                FilePaths = new FilePaths() {
+                    MinecraftInstallationDirectory = mcFolderPathBox.Text
                 }
             };
 
@@ -100,32 +100,37 @@ namespace MinecraftDatapackStudio.Dialogs {
             applyBtn.Enabled = false;
         }
 
-        private void colorSchemePicker_SelectedValueChanged(object sender, EventArgs e) {
+        private void OnColorSchemePickerSelectedItemChanged(object sender, EventArgs e) {
             applyBtn.Enabled = true;
         }
 
-        private void fontSizeCounter_ValueChanged(object sender, EventArgs e) {
+        private void OnFontSizeVounterValueChanged(object sender, EventArgs e) {
             applyBtn.Enabled = true;
         }
 
-        private void fontTextBox_TextChanged(object sender, EventArgs e) {
+        private void OnFontTextBoxTextChange(object sender, EventArgs e) {
             applyBtn.Enabled = true;
         }
 
-        private void okBtn_Click(object sender, EventArgs e) {
+        private void OnOkButtonClick(object sender, EventArgs e) {
             ApplySettings();
         }
 
-        private void editorThemeLabel_Click(object sender, EventArgs e) {
+        private void ChooseMinecraftFolder(object sender, EventArgs e) {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
 
+            dialog.IsFolderPicker = true;
+            dialog.Title = "Select where you installed Minecraft...";
+            dialog.InitialDirectory = "%APPDATA%\\.minecraft";
+            dialog.EnsurePathExists = true;
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
+                mcFolderPathBox.Text = dialog.FileName;
+            }
         }
 
-        private void colorSchemePicker_SelectedIndexChanged(object sender, EventArgs e) {
-
-        }
-
-        private void darkNumericUpDown1_ValueChanged(object sender, EventArgs e) {
-
+        private void OnMinecraftFolderPathBoxTextChanged(object sender, EventArgs e) {
+            applyBtn.Enabled = true;
         }
     }
 }

@@ -243,6 +243,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.openToolStripMenuItem.Text = "&Open Project";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OnOpenProjectToolStripItemClick);
             // 
             // seperator1
             // 
@@ -418,7 +419,7 @@
             this.addFunctionToolBtn,
             this.addLootTableToolBtn});
             this.addElementToolBtn.Name = "addElementToolBtn";
-            this.addElementToolBtn.Size = new System.Drawing.Size(142, 22);
+            this.addElementToolBtn.Size = new System.Drawing.Size(180, 22);
             this.addElementToolBtn.Text = "&Add Element";
             // 
             // addFunctionToolBtn

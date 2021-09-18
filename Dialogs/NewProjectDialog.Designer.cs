@@ -31,10 +31,10 @@ namespace MinecraftDatapackStudio.Dialogs
         private void InitializeComponent()
         {
             this.labelHeader = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.projectName = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.errorText = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnPanel = new System.Windows.Forms.Panel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.createProjectButton = new System.Windows.Forms.Button();
             this.projDescLabel = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@ namespace MinecraftDatapackStudio.Dialogs
             this.projDescriptionBox = new System.Windows.Forms.TextBox();
             this.minecraftVersionBox = new System.Windows.Forms.ComboBox();
             this.worldsList = new System.Windows.Forms.ListBox();
-            this.panel1.SuspendLayout();
+            this.btnPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelHeader
@@ -56,14 +56,14 @@ namespace MinecraftDatapackStudio.Dialogs
             this.labelHeader.TabIndex = 0;
             this.labelHeader.Text = "New Project";
             // 
-            // label1
+            // projectName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 83);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Project Name:";
+            this.projectName.AutoSize = true;
+            this.projectName.Location = new System.Drawing.Point(47, 83);
+            this.projectName.Name = "projectName";
+            this.projectName.Size = new System.Drawing.Size(74, 13);
+            this.projectName.TabIndex = 1;
+            this.projectName.Text = "Project Name:";
             // 
             // label2
             // 
@@ -85,26 +85,26 @@ namespace MinecraftDatapackStudio.Dialogs
             this.errorText.TabIndex = 7;
             this.errorText.Text = "Unable to retrieve version list!";
             // 
-            // panel1
+            // btnPanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel1.Controls.Add(this.cancelButton);
-            this.panel1.Controls.Add(this.createProjectButton);
-            this.panel1.Controls.Add(this.errorText);
-            this.panel1.Location = new System.Drawing.Point(0, 269);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(544, 40);
-            this.panel1.TabIndex = 8;
+            this.btnPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnPanel.Controls.Add(this.cancelButton);
+            this.btnPanel.Controls.Add(this.createProjectButton);
+            this.btnPanel.Controls.Add(this.errorText);
+            this.btnPanel.Location = new System.Drawing.Point(0, 269);
+            this.btnPanel.Name = "btnPanel";
+            this.btnPanel.Size = new System.Drawing.Size(544, 40);
+            this.btnPanel.TabIndex = 8;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.BackColor = System.Drawing.SystemColors.Control;
-            this.cancelButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.cancelButton.BackColor = System.Drawing.Color.White;
+            this.cancelButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Location = new System.Drawing.Point(457, 9);
             this.cancelButton.Name = "cancelButton";
@@ -119,8 +119,8 @@ namespace MinecraftDatapackStudio.Dialogs
             this.createProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.createProjectButton.BackColor = System.Drawing.SystemColors.Control;
-            this.createProjectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.createProjectButton.BackColor = System.Drawing.Color.White;
+            this.createProjectButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
             this.createProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createProjectButton.Location = new System.Drawing.Point(376, 9);
             this.createProjectButton.Name = "createProjectButton";
@@ -156,7 +156,7 @@ namespace MinecraftDatapackStudio.Dialogs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projNameBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.projNameBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projNameBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.projNameBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.projNameBox.Location = new System.Drawing.Point(122, 79);
             this.projNameBox.Name = "projNameBox";
             this.projNameBox.Size = new System.Drawing.Size(399, 20);
@@ -169,7 +169,7 @@ namespace MinecraftDatapackStudio.Dialogs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.projDescriptionBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.projDescriptionBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projDescriptionBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.projDescriptionBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.projDescriptionBox.Location = new System.Drawing.Point(122, 105);
             this.projDescriptionBox.Name = "projDescriptionBox";
             this.projDescriptionBox.Size = new System.Drawing.Size(399, 20);
@@ -181,8 +181,8 @@ namespace MinecraftDatapackStudio.Dialogs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.minecraftVersionBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.minecraftVersionBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.minecraftVersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.minecraftVersionBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.minecraftVersionBox.FormattingEnabled = true;
             this.minecraftVersionBox.Items.AddRange(new object[] {
             "Loading items...."});
@@ -216,9 +216,9 @@ namespace MinecraftDatapackStudio.Dialogs
             this.Controls.Add(this.projNameBox);
             this.Controls.Add(this.chooseWorldLbl);
             this.Controls.Add(this.projDescLabel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnPanel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.projectName);
             this.Controls.Add(this.labelHeader);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -230,8 +230,8 @@ namespace MinecraftDatapackStudio.Dialogs
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create New Project";
             this.Load += new System.EventHandler(this.OnFormLoad);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.btnPanel.ResumeLayout(false);
+            this.btnPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,10 +240,10 @@ namespace MinecraftDatapackStudio.Dialogs
         #endregion
 
         private System.Windows.Forms.Label labelHeader;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label projectName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label errorText;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel btnPanel;
         private System.Windows.Forms.Label projDescLabel;
         private System.Windows.Forms.Label chooseWorldLbl;
         private Button createProjectButton;

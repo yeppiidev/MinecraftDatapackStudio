@@ -4,6 +4,7 @@ using MinecraftDatapackStudio.Data;
 using MinecraftDatapackStudio.Data.JSONContainers;
 using MinecraftDatapackStudio.Dialogs;
 using MinecraftDatapackStudio.Theme;
+using Newtonsoft.Json;
 using ScintillaNET;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,12 @@ namespace MinecraftDatapackStudio {
         private static string keywords = "execute gamemode summon schedule say give item replace from with run kill at as";
         private static string selectors = "@a @e @r @s @p";
 
-        private Dictionary<TabPage, Scintilla> tabs;
-        private Scintilla activeEditor;
         private SaveFileDialog saveFileDialog;
 
         public static string packInfoJSON;
         public static string activeFile;
-        public static string datapackRoot;
+        public static string DefaultMinecraftFolder;
+        public static string CurrentWorld;
 
         public static DatapackInfo currentPack;
 
@@ -33,11 +33,11 @@ namespace MinecraftDatapackStudio {
         public MainForm() {
             InitializeComponent();
 
-            tabs = new Dictionary<TabPage, Scintilla>();
             currentPack = new DatapackInfo();
             saveFileDialog = new SaveFileDialog();
             Context = this;
 
+            DefaultMinecraftFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft");
             whatsNewBrowser.FrameLoadEnd += FrameLoadEnd;
         }
 
@@ -83,6 +83,7 @@ namespace MinecraftDatapackStudio {
         private void OnFormShown(object sender, EventArgs e) {
             // WIP
             editorToolStripMenuItem.Enabled = false;
+            projectToolStripMenuItem.Enabled = false;
         }
 
         private void ShowNewProjectDialog(object sender, EventArgs e) {
@@ -98,11 +99,9 @@ namespace MinecraftDatapackStudio {
             };
 
             SetupEditor(ref control);
-
-            activeEditor = control;
+            
             newPage.Controls.Add(control);
             editorTabs.TabPages.Add(newPage);
-            tabs.Add(newPage, control);
 
             editorTabs.SelectedTab = newPage;
 
@@ -210,7 +209,7 @@ namespace MinecraftDatapackStudio {
 
             currentPack = packInfo;
 
-            string projectFolder = minecraftFolder + "/" + worldName + "/datapacks/" + packInfo.packId;
+            string projectFolder = Path.Combine(minecraftFolder, worldName, "datapacks", packInfo.packId);
             if (Directory.Exists(projectFolder)) {
                 DialogResult dialogResult = MessageBox.Show(null, "Datapack '" + packInfo.packId + "' already exists in the world '" + worldName + "'. Overwrite this pack? (The datapack will be deleted and a new one will be generated in place of it)", "Datapack already exists", MessageBoxButtons.YesNo);
 
@@ -218,17 +217,18 @@ namespace MinecraftDatapackStudio {
                     Directory.Delete(projectFolder);
                     CreateDatapackRoot(projectFolder, packInfo.packId, json);
 
-                    datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
+                    CurrentWorld = worldName;
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 CreateDatapackRoot(projectFolder, packInfo.packId, json);
-                datapackRoot = minecraftFolder + "/" + worldName + "/datapacks";
+                CurrentWorld = worldName;
             }
 
             Context.editorTabs.TabPages.Clear();
+            MainForm.Context.projectToolStripMenuItem.Enabled = true;
 
             return true;
         }
@@ -261,12 +261,9 @@ namespace MinecraftDatapackStudio {
             ListDirectory(Context.projectFileTree, path);
         }
 
-        public void ReloadTreeView(TreeView treeView, string path) {
-            treeView.Nodes.Clear();
-            ListDirectory(treeView, path);
-        }
-
         private static void ListDirectory(TreeView treeView, string path) {
+            treeView.Nodes.Clear();
+
             var stack = new Stack<TreeNode>();
             var rootDirectory = new DirectoryInfo(path);
             var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
@@ -297,14 +294,15 @@ namespace MinecraftDatapackStudio {
                 if (editorTabs.TabCount == 0)
                     AddTabPage();
 
-                string path = Path.Combine(datapackRoot, e.Node.FullPath);
+                string path = Path.Combine(DefaultMinecraftFolder, "saves", CurrentWorld, "datapacks", e.Node.FullPath);
                 editorTabs.SelectedTab.Controls[0].Text = File.ReadAllText(path);
                 editorTabs.SelectedTab.Text = e.Node.Text;
 
                 activeFile = path;
 
                 Text = $"{e.Node.Text} - {currentPack.packId} - Minecraft Datapack Studio";
-            } catch (Exception) { }
+            } catch (Exception) {
+            }
         }
 
         private void SaveOpenFile(object sender, EventArgs e) {
@@ -376,12 +374,37 @@ namespace MinecraftDatapackStudio {
         }
 
         private void OnRefreshProjectClicked(object sender, EventArgs e) {
-            ReloadTreeView(projectFileTree, Path.Combine(datapackRoot, currentPack.packId));
+            ListDirectory(projectFileTree, Path.Combine(DefaultMinecraftFolder, currentPack.packId));
         }
 
         private void OnDeleteItemClicked(object sender, EventArgs e) {
-            File.Delete(Path.Combine(Path.Combine(datapackRoot, currentPack.packId), projectFileTree.SelectedNode.FullPath));
+            File.Delete(Path.Combine(Path.Combine(DefaultMinecraftFolder, currentPack.packId), projectFileTree.SelectedNode.FullPath));
+        }
+
+        private void OnOpenProjectToolStripItemClick(object sender, EventArgs e) {
+            OpenProjectDialog openProjectDialog = new OpenProjectDialog(DefaultMinecraftFolder);
+
+            if (openProjectDialog.ShowDialog() == DialogResult.OK) {
+                if (Directory.Exists(openProjectDialog.ProjectFullPath)) {
+                    CurrentWorld = openProjectDialog.CurrentWorldPath;
+
+                    ListDirectory(projectFileTree, openProjectDialog.ProjectFullPath);
+
+                    PackInfo packInfo = JsonConvert.DeserializeObject<PackInfo>(File.ReadAllText(Path.Combine(openProjectDialog.ProjectFullPath, "pack.mcmeta")));
+                    currentPack = new DatapackInfo() {
+                        packDescription = packInfo.pack.description,
+                        packId = openProjectDialog.DatapackName,
+                        packVersion = packInfo.pack.pack_format
+                    };
+
+                    projectToolStripMenuItem.Enabled = true;
+                    editorToolStripMenuItem.Enabled = true;
+
+                    editorTabs.TabPages.Clear();
+                } else {
+                    MessageBox.Show(null, "It seems like, the world/datapack you selected doesnt exist? This isn't supposed to happen! If you see this, report it to our Discord (link in the about page)", "Hmm...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
-
