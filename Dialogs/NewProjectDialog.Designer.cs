@@ -137,6 +137,9 @@
             // 
             // projNameBox
             // 
+            this.projNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.projNameBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.projNameBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projNameBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
@@ -147,6 +150,9 @@
             // 
             // projDescriptionBox
             // 
+            this.projDescriptionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.projDescriptionBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.projDescriptionBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projDescriptionBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
@@ -157,6 +163,9 @@
             // 
             // minecraftVersionBox
             // 
+            this.minecraftVersionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.minecraftVersionBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.minecraftVersionBox.FormattingEnabled = true;
             this.minecraftVersionBox.Items.AddRange(new object[] {
@@ -168,6 +177,10 @@
             // 
             // worldsList
             // 
+            this.worldsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.worldsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.worldsList.Location = new System.Drawing.Point(122, 158);
             this.worldsList.Name = "worldsList";
             this.worldsList.Size = new System.Drawing.Size(399, 95);
