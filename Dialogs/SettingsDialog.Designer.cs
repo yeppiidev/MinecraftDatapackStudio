@@ -24,29 +24,29 @@
         /// </summary>
         private void InitializeComponent() {
             this.titleLbl = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.okBtn = new System.Windows.Forms.Button();
-            this.cancelBtn = new System.Windows.Forms.Button();
-            this.applyBtn = new System.Windows.Forms.Button();
+            this.btnPanel = new System.Windows.Forms.Panel();
             this.settingsTabs = new System.Windows.Forms.TabControl();
             this.Editor = new System.Windows.Forms.TabPage();
-            this.EditorSettings = new System.Windows.Forms.GroupBox();
-            this.chooseFontBtn = new System.Windows.Forms.Button();
-            this.fontTextBox = new System.Windows.Forms.TextBox();
-            this.fontPickerLbl = new System.Windows.Forms.Label();
-            this.fontSize = new System.Windows.Forms.Label();
-            this.fontSizeCounter = new System.Windows.Forms.NumericUpDown();
-            this.themeGroup = new System.Windows.Forms.GroupBox();
-            this.colorSchemePicker = new System.Windows.Forms.ComboBox();
+            this.ThemesGroup = new DarkUI.Controls.DarkGroupBox();
+            this.colorSchemePicker = new DarkUI.Controls.DarkComboBox();
             this.editorThemeLabel = new System.Windows.Forms.Label();
             this.projGen = new System.Windows.Forms.TabPage();
             this.fontPicker = new System.Windows.Forms.FontDialog();
-            this.panel1.SuspendLayout();
+            this.darkGroupBox1 = new DarkUI.Controls.DarkGroupBox();
+            this.fontTextBox = new DarkUI.Controls.DarkTextBox();
+            this.chooseFontBtn = new DarkUI.Controls.DarkButton();
+            this.fontSizeCounter = new DarkUI.Controls.DarkNumericUpDown();
+            this.fontPickerLbl = new System.Windows.Forms.Label();
+            this.fontSize = new System.Windows.Forms.Label();
+            this.applyBtn = new DarkUI.Controls.DarkButton();
+            this.cancelBtn = new DarkUI.Controls.DarkButton();
+            this.okBtn = new DarkUI.Controls.DarkButton();
+            this.btnPanel.SuspendLayout();
             this.settingsTabs.SuspendLayout();
             this.Editor.SuspendLayout();
-            this.EditorSettings.SuspendLayout();
+            this.ThemesGroup.SuspendLayout();
+            this.darkGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeCounter)).BeginInit();
-            this.themeGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // titleLbl
@@ -59,52 +59,18 @@
             this.titleLbl.TabIndex = 0;
             this.titleLbl.Text = "Settings";
             // 
-            // panel1
+            // btnPanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.okBtn);
-            this.panel1.Controls.Add(this.cancelBtn);
-            this.panel1.Controls.Add(this.applyBtn);
-            this.panel1.Location = new System.Drawing.Point(-2, 419);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(720, 43);
-            this.panel1.TabIndex = 1;
-            // 
-            // okBtn
-            // 
-            this.okBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okBtn.Location = new System.Drawing.Point(471, 10);
-            this.okBtn.Name = "okBtn";
-            this.okBtn.Size = new System.Drawing.Size(75, 23);
-            this.okBtn.TabIndex = 2;
-            this.okBtn.Text = "OK";
-            this.okBtn.UseVisualStyleBackColor = true;
-            this.okBtn.Click += new System.EventHandler(this.okBtn_Click);
-            // 
-            // cancelBtn
-            // 
-            this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(552, 10);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 1;
-            this.cancelBtn.Text = "Cancel";
-            this.cancelBtn.UseVisualStyleBackColor = true;
-            // 
-            // applyBtn
-            // 
-            this.applyBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyBtn.Location = new System.Drawing.Point(633, 10);
-            this.applyBtn.Name = "applyBtn";
-            this.applyBtn.Size = new System.Drawing.Size(75, 23);
-            this.applyBtn.TabIndex = 0;
-            this.applyBtn.Text = "Apply";
-            this.applyBtn.UseVisualStyleBackColor = true;
-            this.applyBtn.Click += new System.EventHandler(this.applyBtn_Click);
+            this.btnPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(74)))), ((int)(((byte)(74)))));
+            this.btnPanel.Controls.Add(this.okBtn);
+            this.btnPanel.Controls.Add(this.cancelBtn);
+            this.btnPanel.Controls.Add(this.applyBtn);
+            this.btnPanel.Location = new System.Drawing.Point(-2, 419);
+            this.btnPanel.Name = "btnPanel";
+            this.btnPanel.Size = new System.Drawing.Size(720, 43);
+            this.btnPanel.TabIndex = 1;
             // 
             // settingsTabs
             // 
@@ -114,121 +80,61 @@
             this.settingsTabs.Controls.Add(this.Editor);
             this.settingsTabs.Controls.Add(this.projGen);
             this.settingsTabs.HotTrack = true;
-            this.settingsTabs.Location = new System.Drawing.Point(24, 74);
+            this.settingsTabs.Location = new System.Drawing.Point(24, 80);
             this.settingsTabs.Name = "settingsTabs";
             this.settingsTabs.SelectedIndex = 0;
-            this.settingsTabs.Size = new System.Drawing.Size(675, 332);
+            this.settingsTabs.Size = new System.Drawing.Size(675, 323);
             this.settingsTabs.TabIndex = 2;
             // 
             // Editor
             // 
-            this.Editor.Controls.Add(this.EditorSettings);
-            this.Editor.Controls.Add(this.themeGroup);
+            this.Editor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.Editor.Controls.Add(this.darkGroupBox1);
+            this.Editor.Controls.Add(this.ThemesGroup);
+            this.Editor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Editor.Location = new System.Drawing.Point(4, 22);
             this.Editor.Name = "Editor";
             this.Editor.Padding = new System.Windows.Forms.Padding(3);
-            this.Editor.Size = new System.Drawing.Size(667, 306);
+            this.Editor.Size = new System.Drawing.Size(667, 297);
             this.Editor.TabIndex = 0;
             this.Editor.Text = "Editor";
-            this.Editor.UseVisualStyleBackColor = true;
             this.Editor.Click += new System.EventHandler(this.Editor_Click);
             // 
-            // EditorSettings
+            // ThemesGroup
             // 
-            this.EditorSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.EditorSettings.Controls.Add(this.chooseFontBtn);
-            this.EditorSettings.Controls.Add(this.fontTextBox);
-            this.EditorSettings.Controls.Add(this.fontPickerLbl);
-            this.EditorSettings.Controls.Add(this.fontSize);
-            this.EditorSettings.Controls.Add(this.fontSizeCounter);
-            this.EditorSettings.Location = new System.Drawing.Point(342, 5);
-            this.EditorSettings.Name = "EditorSettings";
-            this.EditorSettings.Size = new System.Drawing.Size(317, 294);
-            this.EditorSettings.TabIndex = 1;
-            this.EditorSettings.TabStop = false;
-            this.EditorSettings.Text = "Fonts && Others";
-            this.EditorSettings.Enter += new System.EventHandler(this.EditorSettings_Enter);
-            // 
-            // chooseFontBtn
-            // 
-            this.chooseFontBtn.Location = new System.Drawing.Point(239, 47);
-            this.chooseFontBtn.Name = "chooseFontBtn";
-            this.chooseFontBtn.Size = new System.Drawing.Size(65, 22);
-            this.chooseFontBtn.TabIndex = 4;
-            this.chooseFontBtn.Text = "Choose...";
-            this.chooseFontBtn.UseVisualStyleBackColor = true;
-            this.chooseFontBtn.Click += new System.EventHandler(this.chooseFontBtn_Click);
-            // 
-            // fontTextBox
-            // 
-            this.fontTextBox.Location = new System.Drawing.Point(65, 48);
-            this.fontTextBox.Name = "fontTextBox";
-            this.fontTextBox.Size = new System.Drawing.Size(169, 20);
-            this.fontTextBox.TabIndex = 3;
-            this.fontTextBox.TextChanged += new System.EventHandler(this.fontTextBox_TextChanged);
-            // 
-            // fontPickerLbl
-            // 
-            this.fontPickerLbl.AutoSize = true;
-            this.fontPickerLbl.Location = new System.Drawing.Point(32, 52);
-            this.fontPickerLbl.Name = "fontPickerLbl";
-            this.fontPickerLbl.Size = new System.Drawing.Size(31, 13);
-            this.fontPickerLbl.TabIndex = 2;
-            this.fontPickerLbl.Text = "Font:";
-            this.fontPickerLbl.Click += new System.EventHandler(this.fontPickerLbl_Click);
-            // 
-            // fontSize
-            // 
-            this.fontSize.AutoSize = true;
-            this.fontSize.Location = new System.Drawing.Point(9, 26);
-            this.fontSize.Name = "fontSize";
-            this.fontSize.Size = new System.Drawing.Size(54, 13);
-            this.fontSize.TabIndex = 1;
-            this.fontSize.Text = "Font Size:";
-            // 
-            // fontSizeCounter
-            // 
-            this.fontSizeCounter.Location = new System.Drawing.Point(65, 23);
-            this.fontSizeCounter.Name = "fontSizeCounter";
-            this.fontSizeCounter.Size = new System.Drawing.Size(239, 20);
-            this.fontSizeCounter.TabIndex = 0;
-            this.fontSizeCounter.ValueChanged += new System.EventHandler(this.fontSizeCounter_ValueChanged);
-            // 
-            // themeGroup
-            // 
-            this.themeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.themeGroup.Controls.Add(this.colorSchemePicker);
-            this.themeGroup.Controls.Add(this.editorThemeLabel);
-            this.themeGroup.Location = new System.Drawing.Point(6, 5);
-            this.themeGroup.Name = "themeGroup";
-            this.themeGroup.Size = new System.Drawing.Size(328, 294);
-            this.themeGroup.TabIndex = 0;
-            this.themeGroup.TabStop = false;
-            this.themeGroup.Text = "Themes";
+            this.ThemesGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.ThemesGroup.BorderColor = System.Drawing.Color.White;
+            this.ThemesGroup.Controls.Add(this.colorSchemePicker);
+            this.ThemesGroup.Controls.Add(this.editorThemeLabel);
+            this.ThemesGroup.Location = new System.Drawing.Point(6, 6);
+            this.ThemesGroup.Name = "ThemesGroup";
+            this.ThemesGroup.Size = new System.Drawing.Size(330, 283);
+            this.ThemesGroup.TabIndex = 5;
+            this.ThemesGroup.TabStop = false;
+            this.ThemesGroup.Text = "Themes";
             // 
             // colorSchemePicker
             // 
-            this.colorSchemePicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.colorSchemePicker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.colorSchemePicker.FormattingEnabled = true;
             this.colorSchemePicker.Items.AddRange(new object[] {
-            "Default Light",
-            "Default Dark"});
-            this.colorSchemePicker.Location = new System.Drawing.Point(89, 20);
+            "Default Dark",
+            "Default Light"});
+            this.colorSchemePicker.Location = new System.Drawing.Point(88, 19);
             this.colorSchemePicker.Name = "colorSchemePicker";
-            this.colorSchemePicker.Size = new System.Drawing.Size(225, 21);
-            this.colorSchemePicker.TabIndex = 1;
-            this.colorSchemePicker.SelectedValueChanged += new System.EventHandler(this.colorSchemePicker_SelectedValueChanged);
+            this.colorSchemePicker.Size = new System.Drawing.Size(227, 21);
+            this.colorSchemePicker.TabIndex = 2;
             // 
             // editorThemeLabel
             // 
             this.editorThemeLabel.AutoSize = true;
-            this.editorThemeLabel.Location = new System.Drawing.Point(10, 24);
+            this.editorThemeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.editorThemeLabel.Location = new System.Drawing.Point(9, 23);
             this.editorThemeLabel.Name = "editorThemeLabel";
             this.editorThemeLabel.Size = new System.Drawing.Size(76, 13);
             this.editorThemeLabel.TabIndex = 0;
             this.editorThemeLabel.Text = "Color Scheme:";
+            this.editorThemeLabel.Click += new System.EventHandler(this.editorThemeLabel_Click);
             // 
             // projGen
             // 
@@ -246,15 +152,103 @@
             this.fontPicker.ShowApply = true;
             this.fontPicker.ShowEffects = false;
             // 
+            // darkGroupBox1
+            // 
+            this.darkGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.darkGroupBox1.BorderColor = System.Drawing.Color.White;
+            this.darkGroupBox1.Controls.Add(this.fontTextBox);
+            this.darkGroupBox1.Controls.Add(this.chooseFontBtn);
+            this.darkGroupBox1.Controls.Add(this.fontSizeCounter);
+            this.darkGroupBox1.Controls.Add(this.fontPickerLbl);
+            this.darkGroupBox1.Controls.Add(this.fontSize);
+            this.darkGroupBox1.Location = new System.Drawing.Point(342, 6);
+            this.darkGroupBox1.Name = "darkGroupBox1";
+            this.darkGroupBox1.Size = new System.Drawing.Size(319, 283);
+            this.darkGroupBox1.TabIndex = 3;
+            this.darkGroupBox1.TabStop = false;
+            this.darkGroupBox1.Text = "Fonts & Stuff";
+            // 
+            // fontTextBox
+            // 
+            this.fontTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.fontTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fontTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.fontTextBox.Location = new System.Drawing.Point(62, 45);
+            this.fontTextBox.Name = "fontTextBox";
+            this.fontTextBox.Size = new System.Drawing.Size(170, 20);
+            this.fontTextBox.TabIndex = 11;
+            // 
+            // chooseFontBtn
+            // 
+            this.chooseFontBtn.Location = new System.Drawing.Point(237, 45);
+            this.chooseFontBtn.Name = "chooseFontBtn";
+            this.chooseFontBtn.Padding = new System.Windows.Forms.Padding(5);
+            this.chooseFontBtn.Size = new System.Drawing.Size(68, 20);
+            this.chooseFontBtn.TabIndex = 10;
+            this.chooseFontBtn.Text = "Choose...";
+            // 
+            // fontSizeCounter
+            // 
+            this.fontSizeCounter.Location = new System.Drawing.Point(62, 19);
+            this.fontSizeCounter.Name = "fontSizeCounter";
+            this.fontSizeCounter.Size = new System.Drawing.Size(243, 20);
+            this.fontSizeCounter.TabIndex = 9;
+            // 
+            // fontPickerLbl
+            // 
+            this.fontPickerLbl.AutoSize = true;
+            this.fontPickerLbl.Location = new System.Drawing.Point(29, 49);
+            this.fontPickerLbl.Name = "fontPickerLbl";
+            this.fontPickerLbl.Size = new System.Drawing.Size(31, 13);
+            this.fontPickerLbl.TabIndex = 8;
+            this.fontPickerLbl.Text = "Font:";
+            // 
+            // fontSize
+            // 
+            this.fontSize.AutoSize = true;
+            this.fontSize.Location = new System.Drawing.Point(6, 23);
+            this.fontSize.Name = "fontSize";
+            this.fontSize.Size = new System.Drawing.Size(54, 13);
+            this.fontSize.TabIndex = 7;
+            this.fontSize.Text = "Font Size:";
+            // 
+            // applyBtn
+            // 
+            this.applyBtn.Location = new System.Drawing.Point(633, 10);
+            this.applyBtn.Name = "applyBtn";
+            this.applyBtn.Padding = new System.Windows.Forms.Padding(5);
+            this.applyBtn.Size = new System.Drawing.Size(75, 23);
+            this.applyBtn.TabIndex = 3;
+            this.applyBtn.Text = "Apply";
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(552, 10);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Padding = new System.Windows.Forms.Padding(5);
+            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.TabIndex = 4;
+            this.cancelBtn.Text = "Cancel";
+            // 
+            // okBtn
+            // 
+            this.okBtn.Location = new System.Drawing.Point(471, 10);
+            this.okBtn.Name = "okBtn";
+            this.okBtn.Padding = new System.Windows.Forms.Padding(5);
+            this.okBtn.Size = new System.Drawing.Size(75, 23);
+            this.okBtn.TabIndex = 5;
+            this.okBtn.Text = "OK";
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(718, 461);
             this.Controls.Add(this.settingsTabs);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnPanel);
             this.Controls.Add(this.titleLbl);
+            this.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -263,14 +257,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Preferences";
             this.Load += new System.EventHandler(this.OnFormLoad);
-            this.panel1.ResumeLayout(false);
+            this.btnPanel.ResumeLayout(false);
             this.settingsTabs.ResumeLayout(false);
             this.Editor.ResumeLayout(false);
-            this.EditorSettings.ResumeLayout(false);
-            this.EditorSettings.PerformLayout();
+            this.ThemesGroup.ResumeLayout(false);
+            this.ThemesGroup.PerformLayout();
+            this.darkGroupBox1.ResumeLayout(false);
+            this.darkGroupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeCounter)).EndInit();
-            this.themeGroup.ResumeLayout(false);
-            this.themeGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,22 +273,22 @@
         #endregion
 
         private System.Windows.Forms.Label titleLbl;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button cancelBtn;
-        private System.Windows.Forms.Button applyBtn;
-        private System.Windows.Forms.Button okBtn;
+        private System.Windows.Forms.Panel btnPanel;
         private System.Windows.Forms.TabControl settingsTabs;
         private System.Windows.Forms.TabPage Editor;
         private System.Windows.Forms.TabPage projGen;
-        private System.Windows.Forms.GroupBox themeGroup;
-        private System.Windows.Forms.GroupBox EditorSettings;
         private System.Windows.Forms.Label editorThemeLabel;
-        private System.Windows.Forms.TextBox fontTextBox;
+        private System.Windows.Forms.FontDialog fontPicker;
+        private DarkUI.Controls.DarkGroupBox ThemesGroup;
+        private DarkUI.Controls.DarkComboBox colorSchemePicker;
+        private DarkUI.Controls.DarkGroupBox darkGroupBox1;
+        private DarkUI.Controls.DarkTextBox fontTextBox;
+        private DarkUI.Controls.DarkButton chooseFontBtn;
+        private DarkUI.Controls.DarkNumericUpDown fontSizeCounter;
         private System.Windows.Forms.Label fontPickerLbl;
         private System.Windows.Forms.Label fontSize;
-        private System.Windows.Forms.NumericUpDown fontSizeCounter;
-        private System.Windows.Forms.ComboBox colorSchemePicker;
-        private System.Windows.Forms.FontDialog fontPicker;
-        private System.Windows.Forms.Button chooseFontBtn;
+        private DarkUI.Controls.DarkButton okBtn;
+        private DarkUI.Controls.DarkButton cancelBtn;
+        private DarkUI.Controls.DarkButton applyBtn;
     }
 }

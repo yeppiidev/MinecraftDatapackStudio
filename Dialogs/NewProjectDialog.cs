@@ -67,7 +67,7 @@ namespace MinecraftDatapackStudio.Dialogs {
 
             worldsList.Items.Clear();
             foreach (string world in worlds) {
-                worldsList.Items.Add(new DarkUI.Controls.DarkListItem(world.Replace(minecraftFolder + "/saves", "").Replace("\\", "")));
+                worldsList.Items.Add(world.Replace(minecraftFolder + "/saves", "").Replace("\\", ""));
             }
         }
 

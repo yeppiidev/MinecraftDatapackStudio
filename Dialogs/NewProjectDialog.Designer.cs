@@ -1,4 +1,6 @@
-﻿namespace MinecraftDatapackStudio.Dialogs
+﻿using System.Windows.Forms;
+
+namespace MinecraftDatapackStudio.Dialogs
 {
     partial class NewProjectDialog
     {
@@ -33,14 +35,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.errorText = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.createProjectButton = new System.Windows.Forms.Button();
             this.projDescLabel = new System.Windows.Forms.Label();
             this.chooseWorldLbl = new System.Windows.Forms.Label();
-            this.createProjectButton = new DarkUI.Controls.DarkButton();
-            this.cancelButton = new DarkUI.Controls.DarkButton();
-            this.projNameBox = new DarkUI.Controls.DarkTextBox();
-            this.projDescriptionBox = new DarkUI.Controls.DarkTextBox();
-            this.minecraftVersionBox = new DarkUI.Controls.DarkComboBox();
-            this.worldsList = new DarkUI.Controls.DarkListView();
+            this.projNameBox = new System.Windows.Forms.TextBox();
+            this.projDescriptionBox = new System.Windows.Forms.TextBox();
+            this.minecraftVersionBox = new System.Windows.Forms.ComboBox();
+            this.worldsList = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,8 +78,8 @@
             // 
             this.errorText.AutoSize = true;
             this.errorText.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.errorText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.errorText.Location = new System.Drawing.Point(12, 12);
+            this.errorText.ForeColor = System.Drawing.Color.Brown;
+            this.errorText.Location = new System.Drawing.Point(12, 14);
             this.errorText.Name = "errorText";
             this.errorText.Size = new System.Drawing.Size(163, 14);
             this.errorText.TabIndex = 7;
@@ -87,7 +89,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(74)))), ((int)(((byte)(74)))));
+            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.cancelButton);
             this.panel1.Controls.Add(this.createProjectButton);
             this.panel1.Controls.Add(this.errorText);
@@ -95,6 +97,38 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(544, 40);
             this.panel1.TabIndex = 8;
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.BackColor = System.Drawing.SystemColors.Control;
+            this.cancelButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(457, 9);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 9;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.CancelClicked);
+            // 
+            // createProjectButton
+            // 
+            this.createProjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.createProjectButton.BackColor = System.Drawing.SystemColors.Control;
+            this.createProjectButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.createProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createProjectButton.Location = new System.Drawing.Point(376, 9);
+            this.createProjectButton.Name = "createProjectButton";
+            this.createProjectButton.Size = new System.Drawing.Size(75, 23);
+            this.createProjectButton.TabIndex = 8;
+            this.createProjectButton.Text = "Create";
+            this.createProjectButton.UseVisualStyleBackColor = false;
+            this.createProjectButton.Click += new System.EventHandler(this.CreateProject);
             // 
             // projDescLabel
             // 
@@ -115,32 +149,12 @@
             this.chooseWorldLbl.Text = "Choose World:";
             this.chooseWorldLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // createProjectButton
-            // 
-            this.createProjectButton.Location = new System.Drawing.Point(376, 9);
-            this.createProjectButton.Name = "createProjectButton";
-            this.createProjectButton.Padding = new System.Windows.Forms.Padding(5);
-            this.createProjectButton.Size = new System.Drawing.Size(75, 23);
-            this.createProjectButton.TabIndex = 8;
-            this.createProjectButton.Text = "Create";
-            this.createProjectButton.Click += new System.EventHandler(this.CreateProject);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Location = new System.Drawing.Point(457, 9);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Padding = new System.Windows.Forms.Padding(5);
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 9;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.Click += new System.EventHandler(this.CancelClicked);
-            // 
             // projNameBox
             // 
             this.projNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.projNameBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.projNameBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.projNameBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projNameBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.projNameBox.Location = new System.Drawing.Point(122, 79);
@@ -153,7 +167,7 @@
             this.projDescriptionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.projDescriptionBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.projDescriptionBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.projDescriptionBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projDescriptionBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.projDescriptionBox.Location = new System.Drawing.Point(122, 105);
@@ -166,7 +180,9 @@
             this.minecraftVersionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.minecraftVersionBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.minecraftVersionBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.minecraftVersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.minecraftVersionBox.FormattingEnabled = true;
             this.minecraftVersionBox.Items.AddRange(new object[] {
             "Loading items...."});
@@ -180,18 +196,19 @@
             this.worldsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.worldsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.worldsList.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.worldsList.Font = new System.Drawing.Font("Microsoft PhagsPa", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.worldsList.ItemHeight = 17;
             this.worldsList.Location = new System.Drawing.Point(122, 158);
             this.worldsList.Name = "worldsList";
-            this.worldsList.Size = new System.Drawing.Size(399, 95);
+            this.worldsList.Size = new System.Drawing.Size(399, 89);
             this.worldsList.TabIndex = 15;
-            this.worldsList.Text = "darkListView1";
             // 
             // NewProjectDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(544, 308);
             this.Controls.Add(this.worldsList);
             this.Controls.Add(this.minecraftVersionBox);
@@ -204,7 +221,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelHeader);
             this.DoubleBuffered = true;
-            this.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(560, 347);
@@ -229,11 +246,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label projDescLabel;
         private System.Windows.Forms.Label chooseWorldLbl;
-        private DarkUI.Controls.DarkButton createProjectButton;
-        private DarkUI.Controls.DarkButton cancelButton;
-        private DarkUI.Controls.DarkTextBox projNameBox;
-        private DarkUI.Controls.DarkTextBox projDescriptionBox;
-        private DarkUI.Controls.DarkComboBox minecraftVersionBox;
-        private DarkUI.Controls.DarkListView worldsList;
+        private Button createProjectButton;
+        private Button cancelButton;
+        private TextBox projNameBox;
+        private TextBox projDescriptionBox;
+        private ComboBox minecraftVersionBox;
+        private ListBox worldsList;
     }
 }

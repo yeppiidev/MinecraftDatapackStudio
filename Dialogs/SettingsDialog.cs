@@ -115,5 +115,17 @@ namespace MinecraftDatapackStudio.Dialogs {
         private void okBtn_Click(object sender, EventArgs e) {
             ApplySettings();
         }
+
+        private void editorThemeLabel_Click(object sender, EventArgs e) {
+
+        }
+
+        private void colorSchemePicker_SelectedIndexChanged(object sender, EventArgs e) {
+
+        }
+
+        private void darkNumericUpDown1_ValueChanged(object sender, EventArgs e) {
+
+        }
     }
 }
