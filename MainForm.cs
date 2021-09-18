@@ -68,9 +68,11 @@ namespace MinecraftDatapackStudio {
 
         public void ChangeEditorThemes(ColorScheme scheme) {
             foreach (Control tabControl in editorTabs.Controls) {
-                Scintilla control = (Scintilla)tabControl;
+                if (tabControl.Controls[0] is Scintilla) {
+                    Scintilla control = (Scintilla)tabControl.Controls[0];
 
-                ChangeEditorTheme(scheme, ref control);
+                    ChangeEditorTheme(scheme, ref control);
+                }
             }
         }
 

@@ -197,6 +197,7 @@
             // 
             // mainMenu
             // 
+            this.mainMenu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,

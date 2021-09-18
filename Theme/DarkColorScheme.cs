@@ -6,7 +6,7 @@ namespace MinecraftDatapackStudio.Theme {
         public DarkColorScheme() {
             // do nothing
             String.ForeColor = Color.FromArgb(152, 195, 121);
-            CommentLine.ForeColor = Color.FromArgb(127, 132, 142);
+            CommentLine.ForeColor = Color.FromArgb(157, 152, 152);
             Word.ForeColor = Color.FromArgb(97, 175, 239);
             Word2.ForeColor = Color.FromArgb(229, 192, 123);
             Editor.BackColor = Color.FromArgb(49, 58, 64);

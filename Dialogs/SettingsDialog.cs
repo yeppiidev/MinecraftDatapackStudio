@@ -27,9 +27,18 @@ namespace MinecraftDatapackStudio.Dialogs {
                     fontTextBox.Text = preferences.Editor.Font.Name;
                     fontSizeCounter.Value = preferences.Editor.FontSize;
 
-                    if (preferences.Editor.Theme == "Default Dark") {
-                        MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                    switch(preferences.Editor.Theme) {
+                        case "Default Dark":
+                            MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                            break;
+                        case "Default Light":
+                            MainForm.Context.ChangeEditorThemes(new LightColorScheme());
+                            break;
+                        default:
+                            MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                            break;
                     }
+
                 } else {
                     fontSizeCounter.Value = 14;
                     fontTextBox.Text = "Consolas";
@@ -75,6 +84,19 @@ namespace MinecraftDatapackStudio.Dialogs {
 
             string settingsJson = JsonConvert.SerializeObject(preferences);
             Utilities.PutConfig(settingsJson);
+
+            switch (preferences.Editor.Theme) {
+                case "Default Dark":
+                    MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                    break;
+                case "Default Light":
+                    MainForm.Context.ChangeEditorThemes(new LightColorScheme());
+                    break;
+                default:
+                    MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                    break;
+            }
+
             applyBtn.Enabled = false;
         }
 

@@ -190,6 +190,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Theme\ColorScheme.cs" />
+    <Compile Include="Theme\LightColorScheme.cs" />
     <Compile Include="Theme\DarkColorScheme.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Lexers\MCFunctionLexer.cs" />

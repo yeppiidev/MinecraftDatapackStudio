@@ -30,23 +30,23 @@
             this.applyBtn = new System.Windows.Forms.Button();
             this.settingsTabs = new System.Windows.Forms.TabControl();
             this.Editor = new System.Windows.Forms.TabPage();
-            this.projGen = new System.Windows.Forms.TabPage();
-            this.themeGroup = new System.Windows.Forms.GroupBox();
             this.EditorSettings = new System.Windows.Forms.GroupBox();
-            this.editorThemeLabel = new System.Windows.Forms.Label();
-            this.colorSchemePicker = new System.Windows.Forms.ComboBox();
-            this.fontSizeCounter = new System.Windows.Forms.NumericUpDown();
-            this.fontSize = new System.Windows.Forms.Label();
-            this.fontPicker = new System.Windows.Forms.FontDialog();
-            this.fontPickerLbl = new System.Windows.Forms.Label();
-            this.fontTextBox = new System.Windows.Forms.TextBox();
             this.chooseFontBtn = new System.Windows.Forms.Button();
+            this.fontTextBox = new System.Windows.Forms.TextBox();
+            this.fontPickerLbl = new System.Windows.Forms.Label();
+            this.fontSize = new System.Windows.Forms.Label();
+            this.fontSizeCounter = new System.Windows.Forms.NumericUpDown();
+            this.themeGroup = new System.Windows.Forms.GroupBox();
+            this.colorSchemePicker = new System.Windows.Forms.ComboBox();
+            this.editorThemeLabel = new System.Windows.Forms.Label();
+            this.projGen = new System.Windows.Forms.TabPage();
+            this.fontPicker = new System.Windows.Forms.FontDialog();
             this.panel1.SuspendLayout();
             this.settingsTabs.SuspendLayout();
             this.Editor.SuspendLayout();
-            this.themeGroup.SuspendLayout();
             this.EditorSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeCounter)).BeginInit();
+            this.themeGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // titleLbl
@@ -133,29 +133,6 @@
             this.Editor.UseVisualStyleBackColor = true;
             this.Editor.Click += new System.EventHandler(this.Editor_Click);
             // 
-            // projGen
-            // 
-            this.projGen.Location = new System.Drawing.Point(4, 22);
-            this.projGen.Name = "projGen";
-            this.projGen.Padding = new System.Windows.Forms.Padding(3);
-            this.projGen.Size = new System.Drawing.Size(667, 306);
-            this.projGen.TabIndex = 1;
-            this.projGen.Text = "Project Generator";
-            this.projGen.UseVisualStyleBackColor = true;
-            // 
-            // themeGroup
-            // 
-            this.themeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.themeGroup.Controls.Add(this.colorSchemePicker);
-            this.themeGroup.Controls.Add(this.editorThemeLabel);
-            this.themeGroup.Location = new System.Drawing.Point(6, 5);
-            this.themeGroup.Name = "themeGroup";
-            this.themeGroup.Size = new System.Drawing.Size(328, 294);
-            this.themeGroup.TabIndex = 0;
-            this.themeGroup.TabStop = false;
-            this.themeGroup.Text = "Themes";
-            // 
             // EditorSettings
             // 
             this.EditorSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -173,50 +150,23 @@
             this.EditorSettings.Text = "Fonts && Others";
             this.EditorSettings.Enter += new System.EventHandler(this.EditorSettings_Enter);
             // 
-            // editorThemeLabel
+            // chooseFontBtn
             // 
-            this.editorThemeLabel.AutoSize = true;
-            this.editorThemeLabel.Location = new System.Drawing.Point(10, 24);
-            this.editorThemeLabel.Name = "editorThemeLabel";
-            this.editorThemeLabel.Size = new System.Drawing.Size(76, 13);
-            this.editorThemeLabel.TabIndex = 0;
-            this.editorThemeLabel.Text = "Color Scheme:";
+            this.chooseFontBtn.Location = new System.Drawing.Point(239, 47);
+            this.chooseFontBtn.Name = "chooseFontBtn";
+            this.chooseFontBtn.Size = new System.Drawing.Size(65, 22);
+            this.chooseFontBtn.TabIndex = 4;
+            this.chooseFontBtn.Text = "Choose...";
+            this.chooseFontBtn.UseVisualStyleBackColor = true;
+            this.chooseFontBtn.Click += new System.EventHandler(this.chooseFontBtn_Click);
             // 
-            // colorSchemePicker
+            // fontTextBox
             // 
-            this.colorSchemePicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.colorSchemePicker.FormattingEnabled = true;
-            this.colorSchemePicker.Items.AddRange(new object[] {
-            "Default Light",
-            "Default Dark (Experimental)"});
-            this.colorSchemePicker.Location = new System.Drawing.Point(89, 20);
-            this.colorSchemePicker.Name = "colorSchemePicker";
-            this.colorSchemePicker.Size = new System.Drawing.Size(225, 21);
-            this.colorSchemePicker.TabIndex = 1;
-            this.colorSchemePicker.SelectedValueChanged += new System.EventHandler(this.colorSchemePicker_SelectedValueChanged);
-            // 
-            // fontSizeCounter
-            // 
-            this.fontSizeCounter.Location = new System.Drawing.Point(65, 23);
-            this.fontSizeCounter.Name = "fontSizeCounter";
-            this.fontSizeCounter.Size = new System.Drawing.Size(239, 20);
-            this.fontSizeCounter.TabIndex = 0;
-            this.fontSizeCounter.ValueChanged += new System.EventHandler(this.fontSizeCounter_ValueChanged);
-            // 
-            // fontSize
-            // 
-            this.fontSize.AutoSize = true;
-            this.fontSize.Location = new System.Drawing.Point(9, 26);
-            this.fontSize.Name = "fontSize";
-            this.fontSize.Size = new System.Drawing.Size(54, 13);
-            this.fontSize.TabIndex = 1;
-            this.fontSize.Text = "Font Size:";
-            // 
-            // fontPicker
-            // 
-            this.fontPicker.FontMustExist = true;
-            this.fontPicker.ShowApply = true;
-            this.fontPicker.ShowEffects = false;
+            this.fontTextBox.Location = new System.Drawing.Point(65, 48);
+            this.fontTextBox.Name = "fontTextBox";
+            this.fontTextBox.Size = new System.Drawing.Size(169, 20);
+            this.fontTextBox.TabIndex = 3;
+            this.fontTextBox.TextChanged += new System.EventHandler(this.fontTextBox_TextChanged);
             // 
             // fontPickerLbl
             // 
@@ -228,23 +178,73 @@
             this.fontPickerLbl.Text = "Font:";
             this.fontPickerLbl.Click += new System.EventHandler(this.fontPickerLbl_Click);
             // 
-            // fontTextBox
+            // fontSize
             // 
-            this.fontTextBox.Location = new System.Drawing.Point(65, 48);
-            this.fontTextBox.Name = "fontTextBox";
-            this.fontTextBox.Size = new System.Drawing.Size(169, 20);
-            this.fontTextBox.TabIndex = 3;
-            this.fontTextBox.TextChanged += new System.EventHandler(this.fontTextBox_TextChanged);
+            this.fontSize.AutoSize = true;
+            this.fontSize.Location = new System.Drawing.Point(9, 26);
+            this.fontSize.Name = "fontSize";
+            this.fontSize.Size = new System.Drawing.Size(54, 13);
+            this.fontSize.TabIndex = 1;
+            this.fontSize.Text = "Font Size:";
             // 
-            // chooseFontBtn
+            // fontSizeCounter
             // 
-            this.chooseFontBtn.Location = new System.Drawing.Point(239, 47);
-            this.chooseFontBtn.Name = "chooseFontBtn";
-            this.chooseFontBtn.Size = new System.Drawing.Size(65, 22);
-            this.chooseFontBtn.TabIndex = 4;
-            this.chooseFontBtn.Text = "Choose...";
-            this.chooseFontBtn.UseVisualStyleBackColor = true;
-            this.chooseFontBtn.Click += new System.EventHandler(this.chooseFontBtn_Click);
+            this.fontSizeCounter.Location = new System.Drawing.Point(65, 23);
+            this.fontSizeCounter.Name = "fontSizeCounter";
+            this.fontSizeCounter.Size = new System.Drawing.Size(239, 20);
+            this.fontSizeCounter.TabIndex = 0;
+            this.fontSizeCounter.ValueChanged += new System.EventHandler(this.fontSizeCounter_ValueChanged);
+            // 
+            // themeGroup
+            // 
+            this.themeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.themeGroup.Controls.Add(this.colorSchemePicker);
+            this.themeGroup.Controls.Add(this.editorThemeLabel);
+            this.themeGroup.Location = new System.Drawing.Point(6, 5);
+            this.themeGroup.Name = "themeGroup";
+            this.themeGroup.Size = new System.Drawing.Size(328, 294);
+            this.themeGroup.TabIndex = 0;
+            this.themeGroup.TabStop = false;
+            this.themeGroup.Text = "Themes";
+            // 
+            // colorSchemePicker
+            // 
+            this.colorSchemePicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.colorSchemePicker.FormattingEnabled = true;
+            this.colorSchemePicker.Items.AddRange(new object[] {
+            "Default Light",
+            "Default Dark"});
+            this.colorSchemePicker.Location = new System.Drawing.Point(89, 20);
+            this.colorSchemePicker.Name = "colorSchemePicker";
+            this.colorSchemePicker.Size = new System.Drawing.Size(225, 21);
+            this.colorSchemePicker.TabIndex = 1;
+            this.colorSchemePicker.SelectedValueChanged += new System.EventHandler(this.colorSchemePicker_SelectedValueChanged);
+            // 
+            // editorThemeLabel
+            // 
+            this.editorThemeLabel.AutoSize = true;
+            this.editorThemeLabel.Location = new System.Drawing.Point(10, 24);
+            this.editorThemeLabel.Name = "editorThemeLabel";
+            this.editorThemeLabel.Size = new System.Drawing.Size(76, 13);
+            this.editorThemeLabel.TabIndex = 0;
+            this.editorThemeLabel.Text = "Color Scheme:";
+            // 
+            // projGen
+            // 
+            this.projGen.Location = new System.Drawing.Point(4, 22);
+            this.projGen.Name = "projGen";
+            this.projGen.Padding = new System.Windows.Forms.Padding(3);
+            this.projGen.Size = new System.Drawing.Size(667, 306);
+            this.projGen.TabIndex = 1;
+            this.projGen.Text = "Project Generator";
+            this.projGen.UseVisualStyleBackColor = true;
+            // 
+            // fontPicker
+            // 
+            this.fontPicker.FontMustExist = true;
+            this.fontPicker.ShowApply = true;
+            this.fontPicker.ShowEffects = false;
             // 
             // SettingsDialog
             // 
@@ -266,11 +266,11 @@
             this.panel1.ResumeLayout(false);
             this.settingsTabs.ResumeLayout(false);
             this.Editor.ResumeLayout(false);
-            this.themeGroup.ResumeLayout(false);
-            this.themeGroup.PerformLayout();
             this.EditorSettings.ResumeLayout(false);
             this.EditorSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeCounter)).EndInit();
+            this.themeGroup.ResumeLayout(false);
+            this.themeGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
