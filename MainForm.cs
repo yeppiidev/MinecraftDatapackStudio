@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using ScintillaNET;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ using System.Windows.Forms;
 namespace MinecraftDatapackStudio {
     public partial class MainForm : Form {
         private int maxLineNumberCharLength;
+        private string previousName;
 
         private static string keywords = "execute gamemode summon schedule say give item replace from with run kill at as";
         private static string selectors = "@a @e @r @s @p";
@@ -23,12 +25,15 @@ namespace MinecraftDatapackStudio {
 
         public static string packInfoJSON;
         public static string activeFile;
+        public static string CurrentProjectRootDirectory;
         public static string DefaultMinecraftFolder;
-        public static string CurrentWorld;
+        public static string CurrentWorldName;
+        public static string CurrentWorldPath;
 
         public static DatapackInfo currentPack;
 
         public static MainForm Context;
+        public static AppPreferences preferences;
 
         public MainForm() {
             InitializeComponent();
@@ -41,6 +46,27 @@ namespace MinecraftDatapackStudio {
             whatsNewBrowser.FrameLoadEnd += FrameLoadEnd;
         }
 
+        public static void LoadConfig() {
+            try {
+                string settings = Properties.Settings.Default["SettingsJSON"].ToString();
+                if (settings != null && settings != "") {
+                    preferences = JsonConvert.DeserializeObject<AppPreferences>(settings);
+
+                    switch (preferences.Editor.Theme) {
+                        case "Default Dark":
+                            MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                            break;
+                        case "Default Light":
+                            MainForm.Context.ChangeEditorThemes(new LightColorScheme());
+                            break;
+                        default:
+                            MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
+                            break;
+                    }
+                }
+            } catch (Exception) {
+            }
+        }
         private void FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
             if (e.Frame.IsMain) {
                 e.Browser.MainFrame.ExecuteJavaScriptAsync("document.body.style.overflow = 'hidden'");
@@ -50,8 +76,8 @@ namespace MinecraftDatapackStudio {
         public void ChangeEditorTheme(ColorScheme scheme, ref Scintilla control) {
             control.StyleResetDefault();
             control.CaretForeColor = scheme.Editor.CaretForeColor;
-            control.Styles[Style.Default].Font = "Consolas";
-            control.Styles[Style.Default].Size = 10;
+            control.Styles[Style.Default].Font = preferences.Editor.Font.Name;
+            control.Styles[Style.Default].Size = (int) preferences.Editor.Font.Size;
             control.Styles[Style.Default].ForeColor = scheme.Editor.ForeColor;
             control.Styles[Style.Default].BackColor = scheme.Editor.BackColor;
             control.StyleClearAll();
@@ -77,6 +103,7 @@ namespace MinecraftDatapackStudio {
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
+            LoadConfig();
             whatsNewBrowser.Load("https://yeppiidev.github.io/MinecraftDatapackStudio/CHANGELOG.html");
         }
 
@@ -110,15 +137,7 @@ namespace MinecraftDatapackStudio {
             }
 
         }
-
-        private void OnAddFunctionMenuItemClick(object sender, EventArgs e) {
-            AddTabPage();
-        }
-
-        private void OnAddFunctionButtonClick(object sender, EventArgs e) {
-            AddTabPage();
-        }
-
+        
         private void SetupEditor(ref Scintilla control) {
             control.Lexer = Lexer.Null;
 
@@ -168,11 +187,6 @@ namespace MinecraftDatapackStudio {
             const int padding = 2;
             ((Scintilla)sender).Margins[0].Width = ((Scintilla)sender).TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
             this.maxLineNumberCharLength = maxLineNumberCharLength;
-
-            string oldtext = editorTabs.SelectedTab.Text;
-
-            editorTabs.SelectedTab.Text = "";
-            editorTabs.SelectedTab.Text = oldtext + "*";
         }
 
         private void OnEditorKeyDown(object sender, KeyEventArgs e) {
@@ -188,6 +202,13 @@ namespace MinecraftDatapackStudio {
                     if (!((Scintilla)sender).AutoCActive)
                         ((Scintilla)sender).AutoCShow(lenEntered, keywords);
                 }
+            }
+
+            if (!editorTabs.SelectedTab.Text.EndsWith("*")) {
+                string oldtext = editorTabs.SelectedTab.Text;
+
+                editorTabs.SelectedTab.Text = "";
+                editorTabs.SelectedTab.Text = oldtext + "*";
             }
         }
 
@@ -217,14 +238,14 @@ namespace MinecraftDatapackStudio {
                     Directory.Delete(projectFolder);
                     CreateDatapackRoot(projectFolder, packInfo.packId, json);
 
-                    CurrentWorld = worldName;
+                    CurrentWorldName = worldName;
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 CreateDatapackRoot(projectFolder, packInfo.packId, json);
-                CurrentWorld = worldName;
+                CurrentWorldName = worldName;
             }
 
             Context.editorTabs.TabPages.Clear();
@@ -262,26 +283,30 @@ namespace MinecraftDatapackStudio {
         }
 
         private static void ListDirectory(TreeView treeView, string path) {
-            treeView.Nodes.Clear();
+            try {
+                treeView.Nodes.Clear();
 
-            var stack = new Stack<TreeNode>();
-            var rootDirectory = new DirectoryInfo(path);
-            var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
-            stack.Push(node);
+                var stack = new Stack<TreeNode>();
+                var rootDirectory = new DirectoryInfo(path);
+                var node = new TreeNode(rootDirectory.Name) { Tag = rootDirectory };
+                stack.Push(node);
 
-            while (stack.Count > 0) {
-                var currentNode = stack.Pop();
-                var directoryInfo = (DirectoryInfo)currentNode.Tag;
-                foreach (var directory in directoryInfo.GetDirectories()) {
-                    var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
-                    currentNode.Nodes.Add(childDirectoryNode);
-                    stack.Push(childDirectoryNode);
+                while (stack.Count > 0) {
+                    var currentNode = stack.Pop();
+                    var directoryInfo = (DirectoryInfo)currentNode.Tag;
+                    foreach (var directory in directoryInfo.GetDirectories()) {
+                        var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
+                        currentNode.Nodes.Add(childDirectoryNode);
+                        stack.Push(childDirectoryNode);
+                    }
+                    foreach (var file in directoryInfo.GetFiles())
+                        currentNode.Nodes.Add(new TreeNode(file.Name));
                 }
-                foreach (var file in directoryInfo.GetFiles())
-                    currentNode.Nodes.Add(new TreeNode(file.Name));
-            }
 
-            treeView.Nodes.Add(node);
+                treeView.Nodes.Add(node);
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Oops! I couldn't refresh the project!", "Unable to refresh the project view!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CloseApplication(object sender, EventArgs e) {
@@ -289,12 +314,15 @@ namespace MinecraftDatapackStudio {
             Application.Exit();
         }
 
-        private void OpenTabOnNodeClick(object sender, TreeNodeMouseClickEventArgs e) {
+        private void OnNodeClick(object sender, TreeNodeMouseClickEventArgs e) {
             try {
                 if (editorTabs.TabCount == 0)
                     AddTabPage();
 
-                string path = Path.Combine(DefaultMinecraftFolder, "saves", CurrentWorld, "datapacks", e.Node.FullPath);
+                string path = Path.Combine(DefaultMinecraftFolder, "saves", CurrentWorldName, "datapacks", e.Node.FullPath);
+
+                previousName = e.Node.Text;
+
                 editorTabs.SelectedTab.Controls[0].Text = File.ReadAllText(path);
                 editorTabs.SelectedTab.Text = e.Node.Text;
 
@@ -363,7 +391,16 @@ namespace MinecraftDatapackStudio {
         }
 
         private void RenameFile(object sender, NodeLabelEditEventArgs e) {
+            if (!e.CancelEdit) {
+                if (string.IsNullOrEmpty(e.Label) || string.IsNullOrWhiteSpace(e.Label)) {
+                    e.CancelEdit = true;
 
+                    return;
+                }
+
+                File.Move(Path.Combine(CurrentWorldPath, "datapacks", projectFileTree.SelectedNode.FullPath), Path.Combine(Path.GetDirectoryName(Path.Combine(CurrentWorldPath, "datapacks", projectFileTree.SelectedNode.FullPath)), e.Label));
+                ListDirectory(projectFileTree, Path.Combine(CurrentWorldPath, "datapacks", currentPack.packId));
+            }
         }
 
         private void OnProjectTreeKeyDown(object sender, KeyEventArgs e) {
@@ -374,36 +411,106 @@ namespace MinecraftDatapackStudio {
         }
 
         private void OnRefreshProjectClicked(object sender, EventArgs e) {
-            ListDirectory(projectFileTree, Path.Combine(DefaultMinecraftFolder, currentPack.packId));
+            try {
+                ListDirectory(projectFileTree, Path.Combine(CurrentWorldPath, "datapacks", currentPack.packId));
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Unexpected error: " + ex.Message, "Oh No!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnDeleteItemClicked(object sender, EventArgs e) {
-            File.Delete(Path.Combine(Path.Combine(DefaultMinecraftFolder, currentPack.packId), projectFileTree.SelectedNode.FullPath));
+            string packPath = Path.Combine(CurrentWorldPath, "datapacks", (projectFileTree.SelectedNode != null ? projectFileTree.SelectedNode.FullPath : ""));
+
+            try {
+                File.Delete(packPath);
+
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Oops! I coudn't delete this folder!", "Unable to delete folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            ListDirectory(projectFileTree, Path.Combine(CurrentWorldPath, "datapacks", currentPack.packId));
         }
 
         private void OnOpenProjectToolStripItemClick(object sender, EventArgs e) {
-            OpenProjectDialog openProjectDialog = new OpenProjectDialog(DefaultMinecraftFolder);
+            try {
+                OpenProjectDialog openProjectDialog = new OpenProjectDialog(DefaultMinecraftFolder);
 
-            if (openProjectDialog.ShowDialog() == DialogResult.OK) {
-                if (Directory.Exists(openProjectDialog.ProjectFullPath)) {
-                    CurrentWorld = openProjectDialog.CurrentWorldPath;
+                if (openProjectDialog.ShowDialog() == DialogResult.OK) {
+                    if (Directory.Exists(openProjectDialog.ProjectFullPath)) {
+                        CurrentWorldName = openProjectDialog.WorldName;
+                        CurrentWorldPath = Path.Combine((preferences.FilePaths.MinecraftInstallationDirectory != "" || preferences.FilePaths.MinecraftInstallationDirectory != null ? preferences.FilePaths.MinecraftInstallationDirectory : DefaultMinecraftFolder), "saves", openProjectDialog.WorldName);
 
-                    ListDirectory(projectFileTree, openProjectDialog.ProjectFullPath);
+                        ListDirectory(projectFileTree, openProjectDialog.ProjectFullPath);
 
-                    PackInfo packInfo = JsonConvert.DeserializeObject<PackInfo>(File.ReadAllText(Path.Combine(openProjectDialog.ProjectFullPath, "pack.mcmeta")));
-                    currentPack = new DatapackInfo() {
-                        packDescription = packInfo.pack.description,
-                        packId = openProjectDialog.DatapackName,
-                        packVersion = packInfo.pack.pack_format
-                    };
+                        PackInfo packInfo = JsonConvert.DeserializeObject<PackInfo>(File.ReadAllText(Path.Combine(openProjectDialog.ProjectFullPath, "pack.mcmeta")));
+                        currentPack = new DatapackInfo() {
+                            packDescription = packInfo.pack.description,
+                            packId = openProjectDialog.DatapackName,
+                            packVersion = packInfo.pack.pack_format
+                        };
 
-                    projectToolStripMenuItem.Enabled = true;
-                    editorToolStripMenuItem.Enabled = true;
+                        projectToolStripMenuItem.Enabled = true;
+                        editorToolStripMenuItem.Enabled = true;
 
-                    editorTabs.TabPages.Clear();
-                } else {
-                    MessageBox.Show(null, "It seems like, the world/datapack you selected doesnt exist? This isn't supposed to happen! If you see this, report it to our Discord (link in the about page)", "Hmm...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CurrentProjectRootDirectory = openProjectDialog.ProjectFullPath;
+
+                        editorTabs.TabPages.Clear();
+                    } else {
+                        MessageBox.Show(null, "It seems like, the world/datapack you selected doesnt exist? This isn't supposed to happen! If you see this, report it to our Discord (link in the about page)", "Hmm...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Unexpected error: " + ex.Message, "Oh No!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OnLabelEditStart(object sender, NodeLabelEditEventArgs e) {
+            previousName = e.Label;
+        }
+
+        private void OnShowInExplorerClick(object sender, EventArgs e) {
+            string packPath = Path.Combine(CurrentWorldPath, "datapacks", (projectFileTree.SelectedNode != null ? projectFileTree.SelectedNode.FullPath : ""));
+
+            try {
+                Process process = new Process() {
+                    StartInfo = new ProcessStartInfo(packPath)
+                };
+
+                process.Start();
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Oops! Unable to open Windows Explorer: " + packPath, "Unable to open Windows Explorer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OnAddElementClick(object sender, EventArgs e) {
+            try {
+                AddElementDialog addElementDialog = new AddElementDialog();
+
+                if (addElementDialog.ShowDialog() == DialogResult.OK) {
+                    string packPath = Path.Combine(CurrentWorldPath, "datapacks", (projectFileTree.SelectedNode != null ? projectFileTree.SelectedNode.FullPath : ""), addElementDialog.DatapackElementName);
+                    string selectedPath = Path.Combine(CurrentWorldPath, "datapacks", (projectFileTree.SelectedNode != null ? projectFileTree.SelectedNode.FullPath : ""));
+
+                    switch (addElementDialog.DatapackElement) {
+                        case DatapackElement.Function:
+                            FileAttributes fileAttributes = File.GetAttributes(selectedPath);
+
+                            if (!fileAttributes.HasFlag(FileAttributes.Directory)) {
+                                selectedPath = Path.GetDirectoryName(selectedPath);
+                            }
+
+                            StreamWriter streamWriter = File.CreateText(Path.Combine(selectedPath, addElementDialog.DatapackElementName));
+
+                            streamWriter.Write(TemplateTexts.MCFunction.Header);
+                            streamWriter.Flush();
+                            streamWriter.Close();
+
+                            break;
+                    }
+
+                    ListDirectory(projectFileTree, Path.Combine(CurrentWorldPath, "datapacks", currentPack.packId));
+                }
+            } catch (Exception ex) {
+                MessageBox.Show(null, "Unexpected error: " + ex.Message, "Oh No!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
