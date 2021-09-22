@@ -11,15 +11,16 @@ using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio.Dialogs {
     public partial class OpenProjectDialog : Form {
-        public string MinecraftPath;
-        public string DatapackName;
-        public string CurrentWorldPath;
-        public string ProjectFullPath;
+        public string MinecraftPath { get; set; }
+        public string DatapackName { get; set; }
+        public string WorldName { get; set; }
+        public string CurrentWorldPath { get; set; }
+        public string ProjectFullPath { get; set; }
 
         public OpenProjectDialog(string minecraftPath) {
             InitializeComponent();
 
-            this.MinecraftPath = minecraftPath;
+            MinecraftPath = minecraftPath;
         }
 
         private bool CheckIfProjectExists() {
@@ -27,8 +28,10 @@ namespace MinecraftDatapackStudio.Dialogs {
         }
 
         private void OpenProject(object sender, EventArgs e) {
-            ProjectFullPath = Path.Combine(CurrentWorldPath, "datapacks", datapacksList.SelectedItem.ToString());
             DatapackName = datapacksList.SelectedItem.ToString();
+            WorldName = worldsList.SelectedItem.ToString();
+
+            ProjectFullPath = Path.Combine(CurrentWorldPath, "datapacks", DatapackName);
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
