@@ -97,6 +97,8 @@ namespace MinecraftDatapackStudio.Dialogs {
                     break;
             }
 
+            MainForm.LoadConfig();
+
             applyBtn.Enabled = false;
         }
 
