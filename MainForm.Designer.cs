@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.projectTreeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lootTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.showInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +70,6 @@
             this.closeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addElementToolBtn = new System.Windows.Forms.ToolStripMenuItem();
-            this.addFunctionToolBtn = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLootTableToolBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsToolBtn = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,10 +86,17 @@
             this.whatsNewBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.whatsNew = new System.Windows.Forms.Label();
             this.welcomeLbl = new System.Windows.Forms.Label();
+            this.vS2015BlueTheme1 = new WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme();
+            this.visualStudioToolStripExtender1 = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(this.components);
+            this.container = new System.Windows.Forms.SplitContainer();
             this.projectTreeContextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.editorTabs.SuspendLayout();
             this.welcomeTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.container)).BeginInit();
+            this.container.Panel1.SuspendLayout();
+            this.container.Panel2.SuspendLayout();
+            this.container.SuspendLayout();
             this.SuspendLayout();
             // 
             // projectTreeContextMenu
@@ -100,56 +105,55 @@
             this.addToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem1,
+            this.toolStripSeparator6,
+            this.showInExplorerToolStripMenuItem,
             this.toolStripSeparator2,
             this.deleteToolStripMenuItem,
             this.convertToToolStripMenuItem});
             this.projectTreeContextMenu.Name = "projectTreeContextMenu";
-            this.projectTreeContextMenu.Size = new System.Drawing.Size(143, 120);
+            this.projectTreeContextMenu.Size = new System.Drawing.Size(163, 148);
             // 
             // addToolStripMenuItem
             // 
-            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.functionToolStripMenuItem,
-            this.lootTableToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "&Add Element";
-            // 
-            // functionToolStripMenuItem
-            // 
-            this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
-            this.functionToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.functionToolStripMenuItem.Text = "Function";
-            this.functionToolStripMenuItem.Click += new System.EventHandler(this.OnAddFunctionButtonClick);
-            // 
-            // lootTableToolStripMenuItem
-            // 
-            this.lootTableToolStripMenuItem.Name = "lootTableToolStripMenuItem";
-            this.lootTableToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.lootTableToolStripMenuItem.Text = "Loot Table";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.OnAddElementClick);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renameToolStripMenuItem.Text = "Re&name";
             // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem1.Text = "&Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.OnDeleteItemClicked);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
+            // 
+            // showInExplorerToolStripMenuItem
+            // 
+            this.showInExplorerToolStripMenuItem.Name = "showInExplorerToolStripMenuItem";
+            this.showInExplorerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showInExplorerToolStripMenuItem.Text = "Show In Explorer";
+            this.showInExplorerToolStripMenuItem.Click += new System.EventHandler(this.OnShowInExplorerClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "&Refresh";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnRefreshProjectClicked);
             // 
@@ -162,7 +166,7 @@
             this.toolStripMenuItem5,
             this.toolStripMenuItem6});
             this.convertToToolStripMenuItem.Name = "convertToToolStripMenuItem";
-            this.convertToToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.convertToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.convertToToolStripMenuItem.Text = "C&onvert To...";
             // 
             // toolStripMenuItem2
@@ -415,27 +419,12 @@
             // 
             // addElementToolBtn
             // 
-            this.addElementToolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFunctionToolBtn,
-            this.addLootTableToolBtn});
             this.addElementToolBtn.Name = "addElementToolBtn";
-            this.addElementToolBtn.Size = new System.Drawing.Size(180, 22);
-            this.addElementToolBtn.Text = "&Add Element";
-            // 
-            // addFunctionToolBtn
-            // 
-            this.addFunctionToolBtn.Name = "addFunctionToolBtn";
-            this.addFunctionToolBtn.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.addElementToolBtn.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.addFunctionToolBtn.Size = new System.Drawing.Size(196, 22);
-            this.addFunctionToolBtn.Text = "Function";
-            this.addFunctionToolBtn.Click += new System.EventHandler(this.OnAddFunctionMenuItemClick);
-            // 
-            // addLootTableToolBtn
-            // 
-            this.addLootTableToolBtn.Name = "addLootTableToolBtn";
-            this.addLootTableToolBtn.Size = new System.Drawing.Size(196, 22);
-            this.addLootTableToolBtn.Text = "Loot Table";
+            this.addElementToolBtn.Size = new System.Drawing.Size(217, 22);
+            this.addElementToolBtn.Text = "&Add Element";
+            this.addElementToolBtn.Click += new System.EventHandler(this.OnAddElementClick);
             // 
             // toolsToolStripMenuItem
             // 
@@ -516,30 +505,30 @@
             // 
             // projectFileTree
             // 
-            this.projectFileTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.projectFileTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projectFileTree.ContextMenuStrip = this.projectTreeContextMenu;
+            this.projectFileTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectFileTree.LabelEdit = true;
-            this.projectFileTree.Location = new System.Drawing.Point(1, 26);
+            this.projectFileTree.Location = new System.Drawing.Point(0, 0);
+            this.projectFileTree.Margin = new System.Windows.Forms.Padding(16, 3, 3, 3);
             this.projectFileTree.Name = "projectFileTree";
             this.projectFileTree.ShowNodeToolTips = true;
-            this.projectFileTree.Size = new System.Drawing.Size(218, 512);
+            this.projectFileTree.Size = new System.Drawing.Size(233, 515);
             this.projectFileTree.TabIndex = 2;
+            this.projectFileTree.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.OnLabelEditStart);
             this.projectFileTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.RenameFile);
-            this.projectFileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OpenTabOnNodeClick);
+            this.projectFileTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OnNodeClick);
             this.projectFileTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnProjectTreeKeyDown);
             // 
             // editorTabs
             // 
-            this.editorTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.editorTabs.Controls.Add(this.welcomeTab);
+            this.editorTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editorTabs.HotTrack = true;
-            this.editorTabs.Location = new System.Drawing.Point(222, 26);
+            this.editorTabs.Location = new System.Drawing.Point(0, 0);
             this.editorTabs.Name = "editorTabs";
             this.editorTabs.SelectedIndex = 0;
-            this.editorTabs.Size = new System.Drawing.Size(574, 511);
+            this.editorTabs.Size = new System.Drawing.Size(563, 515);
             this.editorTabs.TabIndex = 3;
             // 
             // welcomeTab
@@ -550,7 +539,7 @@
             this.welcomeTab.Location = new System.Drawing.Point(4, 22);
             this.welcomeTab.Name = "welcomeTab";
             this.welcomeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.welcomeTab.Size = new System.Drawing.Size(566, 485);
+            this.welcomeTab.Size = new System.Drawing.Size(555, 489);
             this.welcomeTab.TabIndex = 0;
             this.welcomeTab.Text = "Welcome";
             this.welcomeTab.UseVisualStyleBackColor = true;
@@ -564,7 +553,7 @@
 // TODO: Code generation for '' failed because of Exception 'Invalid Primitive Type: System.IntPtr. Consider using CodeObjectCreateExpression.'.
             this.whatsNewBrowser.Location = new System.Drawing.Point(21, 93);
             this.whatsNewBrowser.Name = "whatsNewBrowser";
-            this.whatsNewBrowser.Size = new System.Drawing.Size(527, 371);
+            this.whatsNewBrowser.Size = new System.Drawing.Size(516, 375);
             this.whatsNewBrowser.TabIndex = 2;
             // 
             // whatsNew
@@ -590,13 +579,33 @@
             this.welcomeLbl.TabIndex = 0;
             this.welcomeLbl.Text = "Welcome to Datapack Studio!";
             // 
+            // visualStudioToolStripExtender1
+            // 
+            this.visualStudioToolStripExtender1.DefaultRenderer = null;
+            // 
+            // container
+            // 
+            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.container.Location = new System.Drawing.Point(0, 24);
+            this.container.Name = "container";
+            // 
+            // container.Panel1
+            // 
+            this.container.Panel1.Controls.Add(this.projectFileTree);
+            // 
+            // container.Panel2
+            // 
+            this.container.Panel2.Controls.Add(this.editorTabs);
+            this.container.Size = new System.Drawing.Size(800, 515);
+            this.container.SplitterDistance = 233;
+            this.container.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 561);
-            this.Controls.Add(this.editorTabs);
-            this.Controls.Add(this.projectFileTree);
+            this.Controls.Add(this.container);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -613,6 +622,10 @@
             this.editorTabs.ResumeLayout(false);
             this.welcomeTab.ResumeLayout(false);
             this.welcomeTab.PerformLayout();
+            this.container.Panel1.ResumeLayout(false);
+            this.container.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.container)).EndInit();
+            this.container.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -647,15 +660,11 @@
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusBar;
         private System.Windows.Forms.ToolStripMenuItem addElementToolBtn;
-        private System.Windows.Forms.ToolStripMenuItem addFunctionToolBtn;
-        private System.Windows.Forms.ToolStripMenuItem addLootTableToolBtn;
         private System.Windows.Forms.TreeView projectFileTree;
         private System.Windows.Forms.TabControl editorTabs;
         private System.Windows.Forms.TabPage welcomeTab;
         private System.Windows.Forms.ContextMenuStrip projectTreeContextMenu;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lootTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertToToolStripMenuItem;
@@ -678,6 +687,11 @@
         private System.Windows.Forms.Label welcomeLbl;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem showInExplorerToolStripMenuItem;
+        private WeifenLuo.WinFormsUI.Docking.VS2015BlueTheme vS2015BlueTheme1;
+        private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender visualStudioToolStripExtender1;
+        private System.Windows.Forms.SplitContainer container;
     }
 }
 
