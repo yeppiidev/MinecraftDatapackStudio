@@ -1,13 +1,6 @@
-﻿using MinecraftDatapackStudio.Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using MinecraftDatapackStudio.Data;
 
 namespace MinecraftDatapackStudio.Dialogs {
     public partial class AddElementDialog : Form {

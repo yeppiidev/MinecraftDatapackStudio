@@ -169,12 +169,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browser\ControlExtensions.cs" />
+    <Compile Include="Data\AboutInfo.cs" />
     <Compile Include="Data\AppPreferences.cs" />
     <Compile Include="Data\DatapackElement.cs" />
     <Compile Include="Data\DatapackInfo.cs" />
     <Compile Include="Data\DatapackVersion.cs" />
     <Compile Include="Data\JSONContainers\PackInfo.cs" />
     <Compile Include="Data\JSONContainers\TagFunction.cs" />
+    <Compile Include="Data\SettingsProvider.cs" />
     <Compile Include="Data\VersionManifest.cs" />
     <Compile Include="Dialogs\AboutDialog.cs">
       <SubType>Form</SubType>
@@ -213,6 +215,7 @@
     <Compile Include="Dialogs\WebBrowserDialog.Designer.cs">
       <DependentUpon>WebBrowserDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

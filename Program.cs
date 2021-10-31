@@ -1,8 +1,8 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using CefSharp;
+using CefSharp.WinForms;
 
 namespace MinecraftDatapackStudio {
     static class Program {

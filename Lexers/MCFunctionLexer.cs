@@ -1,8 +1,8 @@
-﻿using ScintillaNET;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ScintillaNET;
 
 namespace MinecraftDatapackStudio.Lexers {
     public class MCFunctionLexer {
@@ -32,7 +32,7 @@ namespace MinecraftDatapackStudio.Lexers {
             // Start styling
             scintilla.StartStyling(startPos);
             while (startPos < endPos) {
-                var c = (char)scintilla.GetCharAt(startPos);
+                var c = (char) scintilla.GetCharAt(startPos);
 
             REPROCESS:
                 switch (state) {

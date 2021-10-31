@@ -105,7 +105,7 @@ namespace MinecraftDatapackStudio.Dialogs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.BackColor = System.Drawing.Color.White;
             this.cancelButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Location = new System.Drawing.Point(457, 9);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -121,7 +121,7 @@ namespace MinecraftDatapackStudio.Dialogs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.createProjectButton.BackColor = System.Drawing.Color.White;
             this.createProjectButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight;
-            this.createProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.createProjectButton.Location = new System.Drawing.Point(376, 9);
             this.createProjectButton.Name = "createProjectButton";
             this.createProjectButton.Size = new System.Drawing.Size(75, 23);

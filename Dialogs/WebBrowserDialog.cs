@@ -1,11 +1,11 @@
-﻿using CefSharp;
-using MinecraftDatapackStudio.Browser;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using CefSharp;
+using MinecraftDatapackStudio.Browser;
 
 namespace MinecraftDatapackStudio.Dialogs {
     public partial class WebBrowserDialog : Form {
@@ -57,7 +57,7 @@ namespace MinecraftDatapackStudio.Dialogs {
 
         public void ResetIcon() {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-            Icon = (Icon)resources.GetObject("$this.Icon");
+            Icon = (Icon) resources.GetObject("$this.Icon");
         }
 
         public void LoadURL(string url) {

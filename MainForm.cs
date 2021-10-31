@@ -1,4 +1,10 @@
-﻿using CefSharp;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using CefSharp;
 using MinecraftDatapackStudio.Constants;
 using MinecraftDatapackStudio.Data;
 using MinecraftDatapackStudio.Data.JSONContainers;
@@ -6,12 +12,6 @@ using MinecraftDatapackStudio.Dialogs;
 using MinecraftDatapackStudio.Theme;
 using Newtonsoft.Json;
 using ScintillaNET;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio {
     public partial class MainForm : Form {
@@ -95,7 +95,7 @@ namespace MinecraftDatapackStudio {
         public void ChangeEditorThemes(ColorScheme scheme) {
             foreach (Control tabControl in editorTabs.Controls) {
                 if (tabControl.Controls[0] is Scintilla) {
-                    Scintilla control = (Scintilla)tabControl.Controls[0];
+                    Scintilla control = (Scintilla) tabControl.Controls[0];
 
                     ChangeEditorTheme(scheme, ref control);
                 }
@@ -126,7 +126,7 @@ namespace MinecraftDatapackStudio {
             };
 
             SetupEditor(ref control);
-            
+
             newPage.Controls.Add(control);
             editorTabs.TabPages.Add(newPage);
 
@@ -137,7 +137,7 @@ namespace MinecraftDatapackStudio {
             }
 
         }
-        
+
         private void SetupEditor(ref Scintilla control) {
             control.Lexer = Lexer.Null;
 
@@ -178,14 +178,14 @@ namespace MinecraftDatapackStudio {
         private void OnEditorTextChange(object sender, EventArgs e) {
             // Did the number of characters in the line number display change?
             // i.e. nnn VS nn, or nnnn VS nn, etc...
-            var maxLineNumberCharLength = ((Scintilla)sender).Lines.Count.ToString().Length;
+            var maxLineNumberCharLength = ((Scintilla) sender).Lines.Count.ToString().Length;
             if (maxLineNumberCharLength == this.maxLineNumberCharLength)
                 return;
 
             // Calculate the width required to display the last line number
             // and include some padding for good measure.
             const int padding = 2;
-            ((Scintilla)sender).Margins[0].Width = ((Scintilla)sender).TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            ((Scintilla) sender).Margins[0].Width = ((Scintilla) sender).TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
             this.maxLineNumberCharLength = maxLineNumberCharLength;
         }
 
@@ -193,14 +193,14 @@ namespace MinecraftDatapackStudio {
             if (e.KeyCode == Keys.Space && e.Control) {
                 e.SuppressKeyPress = true;
                 // Find the word start
-                var currentPos = ((Scintilla)sender).CurrentPosition;
-                var wordStartPos = ((Scintilla)sender).WordStartPosition(currentPos, true);
+                var currentPos = ((Scintilla) sender).CurrentPosition;
+                var wordStartPos = ((Scintilla) sender).WordStartPosition(currentPos, true);
 
                 // Display the autocompletion list
                 var lenEntered = currentPos - wordStartPos;
                 if (lenEntered > 0) {
-                    if (!((Scintilla)sender).AutoCActive)
-                        ((Scintilla)sender).AutoCShow(lenEntered, keywords);
+                    if (!((Scintilla) sender).AutoCActive)
+                        ((Scintilla) sender).AutoCShow(lenEntered, keywords);
                 }
             }
 
@@ -214,14 +214,14 @@ namespace MinecraftDatapackStudio {
 
         private void OnEditorCharAdd(object sender, CharAddedEventArgs e) {
             // Find the word start
-            var currentPos = ((Scintilla)sender).CurrentPosition;
-            var wordStartPos = ((Scintilla)sender).WordStartPosition(currentPos, true);
+            var currentPos = ((Scintilla) sender).CurrentPosition;
+            var wordStartPos = ((Scintilla) sender).WordStartPosition(currentPos, true);
 
             // Display the autocompletion list
             var lenEntered = currentPos - wordStartPos;
             if (lenEntered > 0) {
-                if (!((Scintilla)sender).AutoCActive)
-                    ((Scintilla)sender).AutoCShow(lenEntered, keywords);
+                if (!((Scintilla) sender).AutoCActive)
+                    ((Scintilla) sender).AutoCShow(lenEntered, keywords);
             }
         }
 
@@ -293,7 +293,7 @@ namespace MinecraftDatapackStudio {
 
                 while (stack.Count > 0) {
                     var currentNode = stack.Pop();
-                    var directoryInfo = (DirectoryInfo)currentNode.Tag;
+                    var directoryInfo = (DirectoryInfo) currentNode.Tag;
                     foreach (var directory in directoryInfo.GetDirectories()) {
                         var childDirectoryNode = new TreeNode(directory.Name) { Tag = directory };
                         currentNode.Nodes.Add(childDirectoryNode);
@@ -352,11 +352,11 @@ namespace MinecraftDatapackStudio {
         }
 
         private void ZoomInEditor(object sender, EventArgs e) {
-            ((Scintilla)editorTabs.SelectedTab.Controls[0]).ZoomIn();
+            ((Scintilla) editorTabs.SelectedTab.Controls[0]).ZoomIn();
         }
 
         private void ZoomOutEditor(object sender, EventArgs e) {
-            ((Scintilla)editorTabs.SelectedTab.Controls[0]).ZoomOut();
+            ((Scintilla) editorTabs.SelectedTab.Controls[0]).ZoomOut();
         }
 
         private void CloseActiveTab(object sender, EventArgs e) {

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MinecraftDatapackStudio.Dialogs {
@@ -48,7 +42,7 @@ namespace MinecraftDatapackStudio.Dialogs {
 
             try {
                 string worldDir = Path.Combine(MinecraftPath, "saves", worldsList.SelectedItem.ToString(), "datapacks");
-                
+
                 if (!Directory.EnumerateFileSystemEntries(worldDir).Any()) {
                     datapacksList.Items.Add("No datapacks available in this world");
                     datapacksList.SelectedIndex = 0;

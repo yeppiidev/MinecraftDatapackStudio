@@ -1,18 +1,14 @@
-﻿using MinecraftDatapackStudio.Data;
-using MinecraftDatapackStudio.Data.JSONContainers;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using MinecraftDatapackStudio.Data;
+using MinecraftDatapackStudio.Data.JSONContainers;
+using Newtonsoft.Json;
 
 namespace MinecraftDatapackStudio.Dialogs {
     public partial class NewProjectDialog : Form {
-        private string manifestDownloadPath = "./meta/minecraft/";
-        private string manifestDownloadFile = "version_manifest.json";
-        private string minecraftFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft");
-
         public static DatapackInfo PackInfo;
         public static Dictionary<String, String> PackVersion;
         public static string PackInfoJson;
@@ -45,12 +41,12 @@ namespace MinecraftDatapackStudio.Dialogs {
         private void OnFormLoad(object sender, EventArgs e) {
             using (var client = new WebClient()) {
                 try {
-                    if (!Directory.Exists(manifestDownloadPath)) {
-                        Directory.CreateDirectory(manifestDownloadPath);
+                    if (!Directory.Exists(Global.VersionManifestDownloadPath)) {
+                        Directory.CreateDirectory(Global.VersionManifestDownloadPath);
                     }
 
                     if (Utilities.IsConnectedToInternet()) {
-                        client.DownloadFileAsync(new Uri("https://api.jsonbin.io/b/613f0f129548541c29b0f5f5/1"), manifestDownloadPath + manifestDownloadFile);
+                        client.DownloadFileAsync(new Uri(Global.VersionManifestDownloadLink), Path.Combine(Global.VersionManifestDownloadPath, Global.VersionManifestDownloadFile));
 
                         client.DownloadFileCompleted += (object eventSender, System.ComponentModel.AsyncCompletedEventArgs completedEventArgs) => {
                             ParseJSON();
@@ -63,17 +59,17 @@ namespace MinecraftDatapackStudio.Dialogs {
                 }
             }
 
-            string[] worlds = Directory.GetDirectories(minecraftFolder + "/saves");
+            string[] worlds = Directory.GetDirectories(Path.Combine(Global.MinecraftPath, "saves"));
 
             worldsList.Items.Clear();
             foreach (string world in worlds) {
-                worldsList.Items.Add(world.Replace(minecraftFolder + "/saves", "").Replace("\\", ""));
+                worldsList.Items.Add(world.Replace(Path.Combine(Global.MinecraftPath, "saves"), "").Replace("\\", ""));
             }
         }
 
         public void ParseJSON() {
             try {
-                String json = File.ReadAllText(manifestDownloadPath + manifestDownloadFile);
+                String json = File.ReadAllText(Global.VersionManifestDownloadPath + Global.VersionManifestDownloadFile);
                 DatapackVersion datapackVersion = JsonConvert.DeserializeObject<DatapackVersion>(json);
 
                 minecraftVersionBox.Items.Clear();
@@ -134,7 +130,7 @@ namespace MinecraftDatapackStudio.Dialogs {
 
                 string json = JsonConvert.SerializeObject(datapackInfo, Formatting.Indented);
 
-                if (MainForm.PackCreationFinished(json, minecraftFolder + "/saves", worldsList.Text, PackInfo)) {
+                if (MainForm.PackCreationFinished(json, Path.Combine(Global.MinecraftPath, "saves"), worldsList.Text, PackInfo)) {
                     Close();
                 }
             } catch (Exception) {
