@@ -63,6 +63,9 @@ namespace MinecraftDatapackStudio {
                             MainForm.Context.ChangeEditorThemes(new DarkColorScheme());
                             break;
                     }
+
+                    if (Global.MinecraftPath != preferences.FilePaths.MinecraftInstallationDirectory && preferences.FilePaths.MinecraftInstallationDirectory != "" && preferences.FilePaths.MinecraftInstallationDirectory != null)
+                        Global.MinecraftPath = preferences.FilePaths.MinecraftInstallationDirectory;
                 }
             } catch (Exception) {
             }
