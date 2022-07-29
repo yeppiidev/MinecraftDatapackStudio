@@ -20,6 +20,7 @@
 # Contributors
 - **[yeppiidev](https://github.com/yeppiidev)** (author/owner)
 - [Progamezia](https://github.com/Aagney-github) (testing)
+- [y2k04](https://github.com/y2k04) (bug fixes)
 
 # External links
 - [Changelog](https://yeppiidev.github.io/MinecraftDatapackStudio/CHANGELOG.html)
