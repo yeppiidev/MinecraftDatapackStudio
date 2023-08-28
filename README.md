@@ -1,7 +1,7 @@
 # Minecraft Datapack Studio
  An easy-to-use IDE for making Minecraft Datapacks.
 
-### PS: Development is currently stale. Feel free to contribute :)
+### PS: Development is currently stale. Feel free to fork and modify :)
 
 > **_Warning: This application is experimental: It may contain a lot of bugs, use only if you know what you're doing (It can sometimes even corrupt your Minecraft worlds, so think twice before using this!)_**
  
